@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">NewPuzzleGame</string>
+
+    <string name="internet1">You are offline \n please check your internet connection.</string>
+    <string name="user_name">User Name</string>
+    <string name="login">Login</string>
+    <string name="helo">TextView</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+</resources>

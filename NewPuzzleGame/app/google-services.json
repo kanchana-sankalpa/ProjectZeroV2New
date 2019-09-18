@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "737543313277",
+    "firebase_url": "https://zerospuzzlegame.firebaseio.com",
+    "project_id": "zerospuzzlegame",
+    "storage_bucket": "zerospuzzlegame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737543313277:android:f51677d6d0f3e5cf539e14",
+        "android_client_info": {
+          "package_name": "com.example.newpuzzlegame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "737543313277-e1484nq53ddf4gblfuf8sv3179fu4l0d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newpuzzlegame",
+            "certificate_hash": "122aa9ccb5fe1bf4f758b5517edf14a847f9ec1b"
+          }
+        },
+        {
+          "client_id": "737543313277-81bib86if57uq7cd0b69kvhujipm5jp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-EGh9XBe0aoWmP9FZoJA0WgITFLM_-bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "737543313277-81bib86if57uq7cd0b69kvhujipm5jp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
