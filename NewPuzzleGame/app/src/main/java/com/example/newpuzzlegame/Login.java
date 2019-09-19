@@ -24,14 +24,20 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
@@ -42,13 +48,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     private GoogleSignInClient mGoogleSignInClient;
 
     SignInButton signInButton;
-
+    FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
     private static final int REQ_CODE = 9001;
     private static final String TAG = "GoogleActivity";
 
     String user_pic_url;
+    String name;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +79,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         // [END config_signin]
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +116,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         Log.d("myz", "result :"+result.isSuccess());
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            String name = account.getDisplayName();
-            String email = account.getEmail();
-            Uri user_pic = account.getPhotoUrl();
+            name = account != null ? account.getDisplayName() : null;
+             email = account != null ? account.getEmail() : null;
+            Uri user_pic = account != null ? account.getPhotoUrl() : null;
             if(user_pic != null){
                 user_pic_url = user_pic.toString();
             }
@@ -123,10 +131,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             Log.d("myz", "name :"+name);
             Log.d("myz", "email :"+email);
             //    gSignStore();
-
-            Intent username = new Intent(Login.this, UserName.class);
-            startActivity(username);
-            finish();
+            addUser();
 
         }
     }
@@ -206,6 +211,37 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 // ...
             }
         }
+    }
+
+    public void addUser() {
+        // [START add_ada_lovelace]
+        // Create a new user with a first and last name
+        Map<String, Object> user = new HashMap<>();
+        user.put("name", name);
+        user.put("email", email);
+        user.put("user_pic", user_pic_url);
+
+        // Add a new document with a generated ID
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Log.d("myz", "Success");
+                        Intent username = new Intent(Login.this, UserName.class);
+                        startActivity(username);
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                        Log.d("myz", "Failed");
+                    }
+                });
+        // [END add_ada_lovelace]
     }
 
 
