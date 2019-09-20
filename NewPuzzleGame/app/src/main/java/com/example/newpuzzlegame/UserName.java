@@ -26,6 +26,7 @@ public class UserName extends AppCompatActivity {
 
     public void signout(View v){
         FirebaseAuth.getInstance().signOut();
+        finish();
     }
 
     public void login(View v){

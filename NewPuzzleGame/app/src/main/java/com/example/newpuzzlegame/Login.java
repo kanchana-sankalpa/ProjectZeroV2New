@@ -33,7 +33,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -131,7 +135,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             Log.d("myz", "name :"+name);
             Log.d("myz", "email :"+email);
             //    gSignStore();
-            addUser();
+            checkUser();
 
         }
     }
@@ -213,37 +217,105 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         }
     }
 
-    public void addUser() {
+    public void checkUser() {
         // [START add_ada_lovelace]
         // Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
-        user.put("name", name);
-        user.put("email", email);
-        user.put("user_pic", user_pic_url);
+
+
 
         // Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        Log.d("myz", "Success");
+
+        DocumentReference docRef = db.collection("users").document(email);
+
+        Log.d("myz", "doc    :" + docRef);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        updateData();
                         Intent username = new Intent(Login.this, UserName.class);
                         startActivity(username);
                         finish();
+
+                    } else {
+                        addData();
+                        Log.d("myz", "No record    :");
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                } else {
+                    Log.d("myz", "Failed task");
+                }
+            }
+        });
+
+
+    }
+public void addData() {
+
+    Map<String, Object> user = new HashMap<>();
+    user.put("name", name);
+    user.put("email", email);
+    user.put("user_pic", user_pic_url);
+
+    db.collection("users").document(email)
+            .set(user)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d("myz", "Success");
+                    Intent username = new Intent(Login.this, UserName.class);
+                    startActivity(username);
+                    finish();
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.w(TAG, "Error adding document", e);
+                    Log.d("myz", "Failed");
+                }
+            });
+}
+
+        public void updateData(){
+            Map<String, Object> user = new HashMap<>();
+            user.put("name", name);
+            user.put("email", email);
+            user.put("user_pic", user_pic_url);
+
+            db.collection("users").document(email)
+                    .update(user)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("myz", "DocumentSnapshot successfully updated!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("myz", "Error updating document", e);
+                        }
+                    });
+        }
+
+    public void getData(){
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                        Log.d("myz", "Failed");
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
                     }
                 });
-        // [END add_ada_lovelace]
     }
-
 
 
 }
