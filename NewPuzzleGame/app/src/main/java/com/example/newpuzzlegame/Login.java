@@ -7,12 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.newpuzzlegame.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,18 +30,25 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 @SuppressLint("Registered")
@@ -52,8 +57,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     private GoogleSignInClient mGoogleSignInClient;
 
     SignInButton signInButton;
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     private static final int REQ_CODE = 9001;
     private static final String TAG = "GoogleActivity";
@@ -61,6 +67,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     String user_pic_url;
     String name;
     String email;
+    String google_id;
+    DatabaseReference myRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +93,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         db = FirebaseFirestore.getInstance();
+
+// ...
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+         myRef = mDatabase.getRef();
+
         mAuth = FirebaseAuth.getInstance();
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +140,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             if(user_pic != null){
                 user_pic_url = user_pic.toString();
             }
-            String  google_id = account.getId();
+             google_id = account.getId();
             //   google_token = account.getIdToken();
 
             String  platform = "google";
@@ -135,7 +149,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             Log.d("myz", "name :"+name);
             Log.d("myz", "email :"+email);
             //    gSignStore();
-            checkUser();
+
+       //     checknewuser();
+        writeNewUser();
+       //     checkUser();
 
         }
     }
@@ -318,4 +335,72 @@ public void addData() {
     }
 
 
+    @IgnoreExtraProperties
+    public class User {
+
+        public String username;
+        public String email;
+
+        public User() {
+            // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        }
+
+        public User(String username, String email) {
+            this.username = username;
+            this.email = email;
+        }
+
+    }
+    private void writeNewUser() {
+      //  User user = new User(name, email);
+
+        Map<String,Object> user = new HashMap<String,Object>();
+        user.put("name", name);
+        user.put("email", email);
+        user.put("pic", user_pic_url);
+
+        String id = mDatabase.push().getKey();
+        Log.d("myz", "id "+ id);
+        assert id != null;
+        myRef.child("users").child(google_id).updateChildren(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("myz", "Success");
+                        Intent username = new Intent(Login.this, UserName.class);
+                        startActivity(username);
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("myz", "Failed");
+                    }
+                });
+    }
+
+   public void checknewuser(){
+       DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(google_id);
+       databaseReference.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+               if(dataSnapshot.exists()) {
+                   Log.d("myz", "User already have");
+                   writeNewUser();
+               }else{
+                   Log.d("myz", "User not exist");
+                   writeNewUser();
+               }
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+               Log.d("myz", "Failed");
+           }
+       }
+           );
+
 }
+}
+
