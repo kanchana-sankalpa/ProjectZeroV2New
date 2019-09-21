@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     String email;
     String google_id;
     DatabaseReference myRef;
-
+    FirebaseUser fuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,10 +148,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             Log.d("myz", "user pic :"+user_pic_url);
             Log.d("myz", "name :"+name);
             Log.d("myz", "email :"+email);
+
+
+
             //    gSignStore();
 
        //     checknewuser();
-        writeNewUser();
+
        //     checkUser();
 
         }
@@ -181,12 +184,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d("myz", "signInWithCredential:success");
+                                mAuth.getUid();
+                            fuser = mAuth.getCurrentUser();
+                            Log.d("myz", "currentFirebaseUser "+ fuser.getUid());
                             //   updateUI(user);
+                            writeNewUser();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Log.w("myz", "signInWithCredential:failure", task.getException());
                             //   Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             //   updateUI(null);
                         }
@@ -223,7 +229,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 GoogleSignInAccount account = task.getResult(ApiException.class);
 
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                assert account != null;
                 firebaseAuthWithGoogle(account);
+
+
                 handleResult(result);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
@@ -359,10 +368,10 @@ public void addData() {
         user.put("email", email);
         user.put("pic", user_pic_url);
 
-        String id = mDatabase.push().getKey();
-        Log.d("myz", "id "+ id);
-        assert id != null;
-        myRef.child("users").child(google_id).updateChildren(user)
+
+        String f_id = fuser.getUid();
+
+        myRef.child("users").child(f_id).updateChildren(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
