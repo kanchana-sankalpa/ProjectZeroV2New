@@ -232,7 +232,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 assert account != null;
                 firebaseAuthWithGoogle(account);
 
-
+                //..
                 handleResult(result);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
