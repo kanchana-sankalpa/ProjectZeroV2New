@@ -393,7 +393,7 @@ public void addData() {
        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(google_id);
        databaseReference.addValueEventListener(new ValueEventListener() {
            @Override
-           public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
+           public void onDataChange(DataSnapshot dataSnapshot) {
                if(dataSnapshot.exists()) {
                    Log.d("myz", "User already have");
                    writeNewUser();
@@ -404,7 +404,7 @@ public void addData() {
            }
 
            @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
+           public void onCancelled(DatabaseError databaseError) {
                Log.d("myz", "Failed");
            }
        }
