@@ -64,7 +64,7 @@ public class UserName extends AppCompatActivity {
                         editor.putString("uname", uname);
                         editor.apply();
 
-                        Intent username = new Intent(UserName.this, MainActivity.class);
+                        Intent username = new Intent(UserName.this, Menu.class);
                         username.putExtra("name", name.getText().toString());
                         startActivity(username);
                         finish();
