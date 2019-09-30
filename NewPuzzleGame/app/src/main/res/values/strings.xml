@@ -12,4 +12,6 @@
     <string name="name_please">Please enter your name</string>
 
     <string name="Play">Play</string>
+    <string name="challenge">CHALLENGE MODE</string>
+    <string name="relax">RELAX MODE</string>
 </resources>

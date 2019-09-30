@@ -6,28 +6,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
-
-public class Menu extends AppCompatActivity {
-
+public class Play extends AppCompatActivity {
     String name;
+    androidx.appcompat.widget.Toolbar toolbar_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_play);
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
 
+        //toolbar setup
+        toolbar_main = findViewById(R.id.toolbar_play);
+        toolbar_main.setTitle(getString(R.string.challenge));
+        setSupportActionBar(toolbar_main);
+
+
+
     }
 
-    public void challangebtn(View v){
-
-        Intent play = new Intent(Menu.this, Play.class);
+    public void playbtn(View v){
+        Intent play = new Intent(Play.this, MainActivity.class);
         play.putExtra("name", name);
         startActivity(play);
         finish();
     }
-
 }
