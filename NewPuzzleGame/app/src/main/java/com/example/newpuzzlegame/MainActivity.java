@@ -3,6 +3,7 @@ package com.example.newpuzzlegame;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -11,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.newpuzzlegame.model.Block;
 import com.example.newpuzzlegame.view.Klotski;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -45,5 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Klotski mKlotskiView = findViewById(R.id.main_klotski);
         mKlotskiView.setBlocks(blocks);
     }
+
+
 }
 

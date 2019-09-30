@@ -8,4 +8,8 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    <string name="name_please">Please enter your name</string>
+
+    <string name="Play">Play</string>
 </resources>

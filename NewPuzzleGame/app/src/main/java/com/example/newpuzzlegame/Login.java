@@ -3,6 +3,7 @@ package com.example.newpuzzlegame;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -166,15 +167,30 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("myz", "currentUser :"+currentUser);
+
+        String uname;
+
+        SharedPreferences mSettings = this.getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        uname = mSettings.getString("uname","");
+        Log.d("myz", "uname :"+uname);
+
         if(currentUser != null){
-            Intent username = new Intent(Login.this, UserName.class);
-            startActivity(username);
-            finish();
+            if(uname.equals("")) {
+                Intent username = new Intent(Login.this, UserName.class);
+                startActivity(username);
+                finish();
+            }else{
+                Intent username = new Intent(Login.this, Menu.class);
+                username.putExtra("name", uname);
+                startActivity(username);
+                finish();
+            }
         }
         // updateUI(currentUser);
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -232,7 +248,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 assert account != null;
                 firebaseAuthWithGoogle(account);
 
-
+                //..
                 handleResult(result);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
@@ -367,15 +383,25 @@ public void addData() {
         user.put("name", name);
         user.put("email", email);
         user.put("pic", user_pic_url);
+        user.put("user_name", "");
 
 
         String f_id = fuser.getUid();
+
+
 
         myRef.child("users").child(f_id).updateChildren(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("myz", "Success");
+
+
+                        SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("f_id", f_id);
+                        editor.apply();
+
                         Intent username = new Intent(Login.this, UserName.class);
                         startActivity(username);
                         finish();
@@ -387,6 +413,9 @@ public void addData() {
                         Log.d("myz", "Failed");
                     }
                 });
+
+
+
     }
 
    public void checknewuser(){
