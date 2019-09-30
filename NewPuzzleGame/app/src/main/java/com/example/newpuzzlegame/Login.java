@@ -180,7 +180,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 startActivity(username);
                 finish();
             }else{
-                Intent username = new Intent(Login.this, Menu.class);
+                Intent username = new Intent(Login.this, Afterlogin.class);
                 username.putExtra("name", uname);
                 startActivity(username);
                 finish();
