@@ -1,9 +1,15 @@
 package com.example.newpuzzlegame.view;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
@@ -13,12 +19,19 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.newpuzzlegame.MainActivity;
+import com.example.newpuzzlegame.Menu;
 import com.example.newpuzzlegame.R;
+import com.example.newpuzzlegame.UserName;
 import com.example.newpuzzlegame.model.Block;
 import com.example.newpuzzlegame.util.Dimension;
 import com.example.newpuzzlegame.util.L;
@@ -37,11 +50,11 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     private int[][] map = new int[5][4];
 
     private List<Block> mBlocks;
-
+    private int stepsno = 0;
     private Rect mRect;
     private int mCellWidth;
     private int mCellHeight;
-
+    private AlertDialog alertDialog;
     private float mBlockSpacing;
     private Drawable mDrawable1x1;
     private Drawable mDrawable1x2;
@@ -105,7 +118,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
 
         mCellWidth = (params.width - getPaddingLeft() - getPaddingRight()) / 4;
         mCellHeight = (params.height - getPaddingTop() - getPaddingBottom()) / 5;
-
+        Log.i("myz", "mCellWidth -> " + mCellWidth + " mCellHeight -> " + mCellHeight);
         mRect = new Rect(0, 0, params.width - getPaddingLeft() - getPaddingRight(), params.height - getPaddingTop() - getPaddingBottom());
 
         updateBlocks();
@@ -155,15 +168,17 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                     Log.d("myz", "newTop :"+ newTop);
                     Log.d("myz", "newLeft :"+ newLeft);
                     */
-                    if(block.getRect().top/170==1 && block.getRect().left/170==1){
+                    if(block.getRect().top/mCellHeight==3 && block.getRect().left/mCellWidth==1){
                         Log.d("myz", "You Won");
+                        MainActivity mainActivity = new MainActivity();
+                        openDialogtime();
                     }
 
                 }
 
                 if(touchedId==4){
                     Block block = mBlocks.get(touchedId);
-                    if(block.getRect().top/170==3 && block.getRect().left/170==1){
+                    if(block.getRect().top/mCellWidth==3 && block.getRect().left/mCellHeight==1){
                         Log.d("myz", "You Won 4 block");
                     }
 
@@ -215,7 +230,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        L.i(this, "surfaceChanged");
+        Log.d("myz", "surfaceChanged");
         updateBlocks();
     }
 
@@ -345,6 +360,74 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 drawable.draw(canvas);
             }
         }
+    }
+
+
+    @SuppressLint("ResourceAsColor")
+    public void openDialogtime(){
+
+        alertDialog = new AlertDialog.Builder(getContext()).create();
+        // Set Custom Title
+        TextView title = new TextView(getContext());
+        // Title Properties
+        title.setText(R.string.achieved);
+        title.setPadding(20, 70, 20, 30);   // Set Position
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+
+        // Set Message
+        TextView msg = new TextView(getContext());
+        // Message Properties
+        msg.setText(R.string.won);
+        msg.setGravity(Gravity.CENTER_HORIZONTAL);
+        msg.setTextColor(Color.BLACK);
+        alertDialog.setView(msg);
+        // Set Button
+        // you can more buttons
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,""+getResources().getString(R.string.finishcl), new DialogInterface.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent username = new Intent(getContext(), Menu.class);
+                ((Activity)getContext()).startActivity(username);
+                ((Activity)getContext()).finish();
+
+            }
+        });
+/*
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CANCEL", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform Action on Button
+            }
+        });
+
+
+*/
+
+
+
+
+        new Dialog(getContext());
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCancelable(false);
+
+        alertDialog.show();
+
+        // Set Properties for OK Button
+        final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        okBT.setPadding(50, 10, 10, 10);   // Set Position
+        okBT.setTextColor(R.color.grey1);
+        okBT.setLayoutParams(neutralBtnLP);
+
+        final Button cancelBT = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        LinearLayout.LayoutParams negBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        negBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        cancelBT.setTextColor(R.color.grey1);
+        cancelBT.setLayoutParams(negBtnLP);
     }
 }
 

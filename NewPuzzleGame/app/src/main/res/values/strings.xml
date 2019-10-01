@@ -14,4 +14,8 @@
     <string name="Play">Play</string>
     <string name="challenge">CHALLENGE MODE</string>
     <string name="relax">RELAX MODE</string>
+
+    <string name="achieved">LEVEL SOLVED</string>
+    <string name="won">Congratulations\nYou solved the puzzle</string>
+    <string name="finishcl">EXIT</string>
 </resources>
