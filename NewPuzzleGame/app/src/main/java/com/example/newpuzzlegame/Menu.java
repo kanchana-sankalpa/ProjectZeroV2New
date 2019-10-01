@@ -30,4 +30,13 @@ public class Menu extends AppCompatActivity {
         finish();
     }
 
+    public void relaxbtn(View v){
+
+        Intent play = new Intent(Menu.this, Play.class);
+        play.putExtra("name", name);
+        play.putExtra("name", name);
+        startActivity(play);
+        finish();
+    }
+
 }
