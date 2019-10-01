@@ -18,4 +18,6 @@
     <string name="achieved">LEVEL SOLVED</string>
     <string name="won">Congratulations\nYou solved the puzzle</string>
     <string name="finishcl">EXIT</string>
+    <string name="time">TIME\'S UP</string>
+    <string name="sorry">Sorry your time\'s up\nplease try again.</string>
 </resources>

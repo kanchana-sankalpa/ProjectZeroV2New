@@ -20,12 +20,14 @@ public class Menu extends AppCompatActivity {
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
 
+
     }
 
     public void challangebtn(View v){
 
         Intent play = new Intent(Menu.this, Play.class);
         play.putExtra("name", name);
+        play.putExtra("mode", 2);
         startActivity(play);
         finish();
     }
@@ -34,7 +36,7 @@ public class Menu extends AppCompatActivity {
 
         Intent play = new Intent(Menu.this, Play.class);
         play.putExtra("name", name);
-        play.putExtra("name", name);
+        play.putExtra("mode", 1);
         startActivity(play);
         finish();
     }

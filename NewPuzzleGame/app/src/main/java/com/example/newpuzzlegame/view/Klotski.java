@@ -170,7 +170,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                     */
                     if(block.getRect().top/mCellHeight==3 && block.getRect().left/mCellWidth==1){
                         Log.d("myz", "You Won");
-                        MainActivity mainActivity = new MainActivity();
+                        MainActivity x = (MainActivity) getContext();
+                        x.t.cancel();
                         openDialogtime();
                     }
 
@@ -362,6 +363,73 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+
+    @SuppressLint("ResourceAsColor")
+    public void openDialogtime2(){
+
+        alertDialog = new AlertDialog.Builder(getContext()).create();
+        // Set Custom Title
+        TextView title = new TextView(getContext());
+        // Title Properties
+        title.setText(R.string.time);
+        title.setPadding(20, 70, 20, 30);   // Set Position
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+
+        // Set Message
+        TextView msg = new TextView(getContext());
+        // Message Properties
+        msg.setText(R.string.sorry);
+        msg.setGravity(Gravity.CENTER_HORIZONTAL);
+        msg.setTextColor(Color.BLACK);
+        alertDialog.setView(msg);
+        // Set Button
+        // you can more buttons
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,""+getResources().getString(R.string.finishcl), new DialogInterface.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent username = new Intent(getContext(), Menu.class);
+                ((Activity)getContext()).startActivity(username);
+                ((Activity)getContext()).finish();
+
+            }
+        });
+/*
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CANCEL", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform Action on Button
+            }
+        });
+
+
+*/
+
+
+
+
+        new Dialog(getContext());
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCancelable(false);
+
+        alertDialog.show();
+
+        // Set Properties for OK Button
+        final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        okBT.setPadding(50, 10, 10, 10);   // Set Position
+        okBT.setTextColor(R.color.grey1);
+        okBT.setLayoutParams(neutralBtnLP);
+
+        final Button cancelBT = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        LinearLayout.LayoutParams negBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        negBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        cancelBT.setTextColor(R.color.grey1);
+        cancelBT.setLayoutParams(negBtnLP);
+    }
 
     @SuppressLint("ResourceAsColor")
     public void openDialogtime(){

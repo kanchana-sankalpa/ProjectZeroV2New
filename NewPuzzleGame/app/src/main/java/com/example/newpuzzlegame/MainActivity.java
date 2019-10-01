@@ -37,9 +37,11 @@ public class MainActivity extends AppCompatActivity {
     TextView stepstxt;
     public int seconds = 0;
     public int minutes = 0;
+    Klotski mKlotskiView;
     AlertDialog alertDialog;
-
-    Timer t;
+    LinearLayout dis;
+String name;
+    public Timer t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         stepstxt = findViewById(R.id.steps);
         timertxt = findViewById(R.id.timer);
+        dis = findViewById(R.id.dis);
         //Declare the timer
          t = new Timer();
         //Set the schedule function and rate
@@ -75,7 +78,11 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
+                        if(minutes == 1){
 
+                          mKlotskiView.openDialogtime2();
+                          t.cancel();
+                        }
 
                     }
 
@@ -86,9 +93,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-       String name = intent.getStringExtra("name");
-
+       name = intent.getStringExtra("name");
+       int mode = intent.getIntExtra("mode",0);
         Log.d("myz", "name :" + name);
+
+        if(mode == 2){
+            dis.setVisibility(View.VISIBLE);
+        }else{
+            dis.setVisibility(View.GONE);
+        }
 
         //toolbar setup
         toolbar_main = findViewById(R.id.toolbar_main);
@@ -100,12 +113,16 @@ public class MainActivity extends AppCompatActivity {
       //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
         List<Block> blocks = KlotskiMapParser.parse("1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
 
-        Klotski mKlotskiView = findViewById(R.id.main_klotski);
+         mKlotskiView = findViewById(R.id.main_klotski);
         mKlotskiView.setBlocks(blocks);
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        Intent play = new Intent(MainActivity.this, Menu.class);
+        play.putExtra("name", name);
+        startActivity(play);
+        finish();
+    }
 }
 
