@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar_main;
     TextView timertxt;
     TextView stepstxt;
-    public int seconds = 0;
+    public int seconds = 59;
     public int minutes = 0;
     Klotski mKlotskiView;
     AlertDialog alertDialog;
@@ -59,30 +59,35 @@ String name;
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
-
                     @Override
                     public void run() {
-                        if(seconds<10) {
+
+                        if(seconds < 10) {
                             timertxt.setText(String.valueOf(minutes) + ":" + "0"+String.valueOf(seconds));
                         }else{
                             timertxt.setText(String.valueOf(minutes) + ":" + String.valueOf(seconds));
                         }
-                        seconds += 1;
 
-                        if(seconds == 60)
+                        seconds -= 1;
+
+                        if(minutes == 0 && seconds == 0){
+
+                            timertxt.setText(String.valueOf(minutes)+":"+ "00");
+                            mKlotskiView.openDialogtime2();
+                            t.cancel();
+
+                        }
+
+                        if(seconds == 0)
                         {
-                            timertxt.setText(String.valueOf(minutes)+":"+String.valueOf(seconds));
+                            timertxt.setText(String.valueOf(minutes)+":"+ "0"+String.valueOf(seconds));
 
-                            seconds=0;
-                            minutes=minutes+1;
+                            seconds = 60;
+                            minutes = minutes - 1;
 
                         }
 
-                        if(minutes == 1){
 
-                          mKlotskiView.openDialogtime2();
-                          t.cancel();
-                        }
 
                     }
 
