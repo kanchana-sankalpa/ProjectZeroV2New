@@ -51,7 +51,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
 
     private int[][] map = new int[5][4];
 
-    private List<Block> mBlocks;
+    private List<Block> mBlocks,bls;
     private int stepsno = 0;
     private Rect mRect;
     private int mCellWidth;
@@ -196,8 +196,10 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
 
                 mDownX = 0;
                 mDownY = 0;
+                Log.d("myz", "Touched id" + touchedId);
+
               //  Log.d("myz", "Touch ID  :" + touchedId);
-                if(touchedId==1){
+                if(touchedId==2){
                     Block block = mBlocks.get(touchedId);
                   /*
                     Rect rect = new Rect(block.getRect().left,
@@ -285,7 +287,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     protected int getTouchedBlock(int x, int y) {
-        for (int i = 0; i < mBlocks.size(); i++) {
+        for (int i = 1; i < mBlocks.size(); i++) {
             if (mBlocks.get(i).getRect().contains(x, y)) {
                 return i;
             }
@@ -294,7 +296,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     protected boolean canMove(Rect rect, int ignore) {
-        for (int i = 0; i < mBlocks.size(); i++) {
+        for (int i = 1; i < mBlocks.size(); i++) {
             if ((i != ignore && rect.intersect(mBlocks.get(i).getRect())) || !mRect.contains(rect)) {
                 return false;
             }
@@ -315,6 +317,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     protected void updateBlocks() {
+
         if (mBlocks != null) {
             for (int i = 0; i < mBlocks.size(); i++) {
                 Block block = mBlocks.get(i);
@@ -325,9 +328,14 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 mBlocks.set(i, block);
             }
         }
+
+
+
         if (mDrawThread != null) {
             mDrawThread.setBlocks(mBlocks);
         }
+
+
 
     }
 

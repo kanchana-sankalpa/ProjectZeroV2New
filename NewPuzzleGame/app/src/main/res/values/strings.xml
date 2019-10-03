@@ -20,4 +20,6 @@
     <string name="finishcl">EXIT</string>
     <string name="time">TIME\'S UP</string>
     <string name="sorry">Sorry your time\'s up\nplease try again.</string>
+
+    <string name="ins">The goal is to bring the upper red block to the final position(At down) in as few steps as possible.</string>
 </resources>

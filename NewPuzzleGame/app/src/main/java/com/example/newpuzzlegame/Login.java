@@ -160,7 +160,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
 
         }
     }
-
+/*
     @Override
     public void onStart() {
         super.onStart();
@@ -188,6 +188,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         }
         // updateUI(currentUser);
     }
+
+ */
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 

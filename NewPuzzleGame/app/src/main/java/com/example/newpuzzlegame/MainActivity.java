@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
             lay = findViewById(R.id.lay);
         stepstxt.setText(""+steps);
 
+
+
         dis = findViewById(R.id.dis);
         //Declare the timer
          t = new Timer();
@@ -119,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
       //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
-        List<Block> blocks = KlotskiMapParser.parse("1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+        List<Block> blocks = KlotskiMapParser.parse("4,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
 
          mKlotskiView = findViewById(R.id.main_klotski);
         mKlotskiView.setBlocks(blocks);
