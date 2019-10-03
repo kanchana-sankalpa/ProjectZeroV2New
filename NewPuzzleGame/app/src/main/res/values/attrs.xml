@@ -6,5 +6,6 @@
         <attr name="blockDrawable1x2" format="reference|color"/>
         <attr name="blockDrawable2x1" format="reference|color"/>
         <attr name="blockDrawable2x2" format="reference|color"/>
+        <attr name="blockDrawable3x3" format="reference|color"/>
     </declare-styleable>
 </resources>

@@ -7,7 +7,7 @@
         android:id="@+id/drawer"
         android:layout_height="match_parent"
         android:layoutDirection="ltr"
-
+    android:background="@drawable/back"
         tools:context=".MainActivity"
         tools:ignore="UnusedAttribute">
 
@@ -16,34 +16,122 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:fitsSystemWindows="true"
-        android:minHeight="?attr/actionBarSize">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize">
 
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical">
-    <com.example.newpuzzlegame.view.Klotski
-        android:id="@+id/main_klotski"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:blockDrawable1x1="@mipmap/bing2"
-        app:blockDrawable1x2="#342187"
-        app:blockDrawable2x1="@color/colorPrimary"
-        app:blockDrawable2x2="@color/colorAccent"
-        app:blockSpacing="3dp" />
+        <LinearLayout
+            android:id="@+id/dis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green_overlay"
+            android:orientation="horizontal"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="Time :"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="Steps:"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.example.newpuzzlegame.view.Klotski
+                android:id="@+id/main_klotski"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:blockDrawable1x1="@color/facebookblue"
+                app:blockDrawable1x2="@color/design_default_color_primary"
+                app:blockDrawable2x1="@color/colorPrimary"
+                app:blockDrawable2x2="@mipmap/twotwo"
+                app:blockDrawable3x3="@color/crimson"
+                app:blockSpacing="3dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/ins"
+                android:textColor="@color/floralwhite"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
+
 </RelativeLayout>
