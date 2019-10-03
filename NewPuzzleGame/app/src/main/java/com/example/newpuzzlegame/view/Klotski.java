@@ -38,6 +38,7 @@ import com.example.newpuzzlegame.util.L;
 
 import java.util.List;
 
+import static java.lang.Math.abs;
 
 
 public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
@@ -45,6 +46,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     private final String TAG = getClass().getSimpleName();
 
     private SurfaceHolder mSurfaceHolder;
+
     private DrawThread mDrawThread;
 
     private int[][] map = new int[5][4];
@@ -60,6 +62,10 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     private Drawable mDrawable1x2;
     private Drawable mDrawable2x1;
     private Drawable mDrawable2x2;
+
+    int firstx,firsty;
+    float lastx,lasty;
+
 
     public Klotski(Context context) { this(context, null);
     }
@@ -95,6 +101,9 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         int mHeight = getHeight();
         int mWidth = getWidth();
 
+       MainActivity activity = (MainActivity) getContext();
+        activity.lay.setLayoutParams(getLayoutParams());
+
         Log.d("myz", "before adjust the height -> " + mHeight + " width -> " + mWidth);
 
         ViewGroup.LayoutParams params = getLayoutParams();
@@ -113,6 +122,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
 
         Log.d("myz", "after adjust the height -> " + params.height + " width -> " + params.width);
         setLayoutParams(params);
+
+
 
         Log.i(TAG, "adjusted height -> " + params.height + " width -> " + params.width);
 
@@ -137,7 +148,18 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 L.i(this, "ACTION_DOWN");
                 mDownX = event.getX();
                 mDownY = event.getY();
+
+
                 touchedId = getTouchedBlock((int) mDownX, (int) mDownY);
+
+                try {
+                    Block s = mBlocks.get(touchedId);
+                    firstx = Math.round((float) s.getRect().top / mCellHeight) * mCellHeight;
+                    firsty = Math.round((float) s.getRect().left / mCellWidth) * mCellWidth;
+                }catch (Exception e){
+                    Log.d("myz", "err :"+e);
+                }
+
 
                 Log.d("myz", "Initial X"+mDownX+" Initial Y"+mDownY);
                 break;
@@ -146,13 +168,35 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 if (touchedId == -1) {
                     break;
                 }
+
+
+
                 Block b = mBlocks.get(touchedId);
+
+                lastx = b.getX() ;
+                lasty = b.getY() ;
+
+
                 int newTop = Math.round((float) b.getRect().top / mCellHeight) * mCellHeight;
                 int newLeft = Math.round((float) b.getRect().left / mCellWidth) * mCellWidth;
                 b.getRect().offsetTo(newLeft, newTop);
+                Log.d("myz", "firstx  :" + firsty+" lastx   :"+ newLeft);
+                Log.d("myz", "firsty  :" + firstx+ " lasty  :"+newTop);
+
+                int steps = 0;
+
+                if(firsty != newLeft){
+                    steps =  abs(newLeft - firsty) / mCellHeight;
+                }else if(firstx != newTop){
+                    steps =  abs(firstx - newTop) / mCellWidth;
+                }
+
+                MainActivity activity = (MainActivity) getContext();
+                activity.setSteps(steps);
+
                 mDownX = 0;
                 mDownY = 0;
-                Log.d("myz", "Touch ID  :" + touchedId);
+              //  Log.d("myz", "Touch ID  :" + touchedId);
                 if(touchedId==1){
                     Block block = mBlocks.get(touchedId);
                   /*
@@ -284,6 +328,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         if (mDrawThread != null) {
             mDrawThread.setBlocks(mBlocks);
         }
+
     }
 
     protected Drawable resolveDrawable(Block.Type type) {

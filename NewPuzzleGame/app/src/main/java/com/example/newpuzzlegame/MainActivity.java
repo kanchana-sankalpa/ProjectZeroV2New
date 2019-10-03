@@ -37,11 +37,13 @@ public class MainActivity extends AppCompatActivity {
     TextView stepstxt;
     public int seconds = 59;
     public int minutes = 0;
-    Klotski mKlotskiView;
+    Klotski mKlotskiView,klotski;
     AlertDialog alertDialog;
     LinearLayout dis;
-String name;
+    String name;
     public Timer t;
+    public LinearLayout lay;
+    int steps = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,9 @@ String name;
 
         stepstxt = findViewById(R.id.steps);
         timertxt = findViewById(R.id.timer);
+            lay = findViewById(R.id.lay);
+        stepstxt.setText(""+steps);
+
         dis = findViewById(R.id.dis);
         //Declare the timer
          t = new Timer();
@@ -71,11 +76,9 @@ String name;
                         seconds -= 1;
 
                         if(minutes == 0 && seconds == 0){
-
                             timertxt.setText(String.valueOf(minutes)+":"+ "00");
                             mKlotskiView.openDialogtime2();
                             t.cancel();
-
                         }
 
                         if(seconds == 0)
@@ -128,6 +131,12 @@ String name;
         play.putExtra("name", name);
         startActivity(play);
         finish();
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setSteps(int s){
+        steps += s ;
+        stepstxt.setText(""+steps);
     }
 }
 
