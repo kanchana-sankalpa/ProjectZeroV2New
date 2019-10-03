@@ -32,6 +32,11 @@ public class Menu extends AppCompatActivity {
         finish();
     }
 
+    public void signout(View v){
+        FirebaseAuth.getInstance().signOut();
+        finish();
+    }
+
     public void relaxbtn(View v){
 
         Intent play = new Intent(Menu.this, Play.class);

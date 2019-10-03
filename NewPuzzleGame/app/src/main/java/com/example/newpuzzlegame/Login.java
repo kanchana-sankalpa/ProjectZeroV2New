@@ -160,7 +160,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
 
         }
     }
-/*
+
     @Override
     public void onStart() {
         super.onStart();
@@ -180,7 +180,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                 startActivity(username);
                 finish();
             }else{
-                Intent username = new Intent(Login.this, Afterlogin.class);
+                Intent username = new Intent(Login.this, Menu.class);
                 username.putExtra("name", uname);
                 startActivity(username);
                 finish();
@@ -189,7 +189,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
         // updateUI(currentUser);
     }
 
- */
+
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 

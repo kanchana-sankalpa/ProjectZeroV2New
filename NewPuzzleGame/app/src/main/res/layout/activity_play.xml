@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back"
     android:orientation="vertical"
     tools:context=".Play">
 
@@ -12,13 +13,10 @@
         android:id="@+id/toolbar_play"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true"
-        android:minHeight="?attr/actionBarSize">
-    </androidx.appcompat.widget.Toolbar>
+        android:minHeight="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
 
-=======
->>>>>>> parent of e01cf28... Revert "Merge pull request #1 from kanchana-sankalpa/kanchana2"
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,9 +32,16 @@
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:layout_weight="1"
+                android:background="@drawable/buttonshape2"
                 android:onClick="playbtn"
                 android:text="@string/Play" />
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout><![CDATA[
+
+    =======
+    >>>>>>> parent of e01cf28... Revert "Merge pull request #1 from kanchana-sankalpa/kanchana2"
+
+    ]]>
 </LinearLayout>

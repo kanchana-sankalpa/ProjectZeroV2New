@@ -7,7 +7,7 @@
         android:id="@+id/drawer"
         android:layout_height="match_parent"
         android:layoutDirection="ltr"
-    android:background="@drawable/bg"
+    android:background="@drawable/back"
         tools:context=".MainActivity"
         tools:ignore="UnusedAttribute">
 
@@ -18,21 +18,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:fitsSystemWindows="true"
-        android:minHeight="?attr/actionBarSize">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize">
 
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
 
         <LinearLayout
             android:id="@+id/dis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/green_overlay"
             android:orientation="horizontal"
             tools:visibility="visible">
 
@@ -47,6 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:paddingLeft="5dp"
                     android:text="Time :"
@@ -56,6 +58,7 @@
                     android:id="@+id/timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="TextView"
@@ -74,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:paddingLeft="5dp"
                     android:text="Steps:"
@@ -83,6 +87,7 @@
                     android:id="@+id/steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0"
@@ -103,10 +108,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                app:blockDrawable1x1="@color/notattempted"
-                app:blockDrawable1x2="#342187"
+                app:blockDrawable1x1="@color/facebookblue"
+                app:blockDrawable1x2="@color/design_default_color_primary"
                 app:blockDrawable2x1="@color/colorPrimary"
                 app:blockDrawable2x2="@mipmap/twotwo"
+                app:blockDrawable3x3="@color/crimson"
                 app:blockSpacing="3dp" />
 
 
@@ -123,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="@string/ins"
+                android:textColor="@color/floralwhite"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

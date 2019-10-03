@@ -62,6 +62,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     private Drawable mDrawable1x2;
     private Drawable mDrawable2x1;
     private Drawable mDrawable2x2;
+    private Drawable mDrawable3x3;
 
     int firstx,firsty;
     float lastx,lasty;
@@ -90,6 +91,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         mDrawable1x2 = ta.getDrawable(R.styleable.Klotski_blockDrawable1x2);
         mDrawable2x1 = ta.getDrawable(R.styleable.Klotski_blockDrawable2x1);
         mDrawable2x2 = ta.getDrawable(R.styleable.Klotski_blockDrawable2x2);
+        mDrawable3x3 = ta.getDrawable(R.styleable.Klotski_blockDrawable3x3);
         ta.recycle();
     }
 
@@ -348,6 +350,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
             return mDrawable2x1;
         } else if (type == Block.Type.RECT_2x2) {
             return mDrawable2x2;
+        }else if(type == Block.Type.RECT_3x3){
+            return mDrawable3x3;
         }
         return null;
     }

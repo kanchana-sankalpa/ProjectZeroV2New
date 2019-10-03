@@ -54,7 +54,9 @@ public class Block {
         RECT_1x1(1, 1, 1),
         RECT_1x2(2, 1, 2),
         RECT_2x1(3, 2, 1),
-       RECT_2x2(4, 2, 2);
+       RECT_2x2(4, 2, 2),
+        RECT_3x3(5,2,2);
+
 
         int value;
         int width;
@@ -78,7 +80,7 @@ public class Block {
             return height;
         }
 
-        public static Type parse(@IntRange(from = 1, to = 4) int type) {
+        public static Type parse(@IntRange(from = 1, to = 5) int type) {
             return values()[type - 1];
         }
     }
