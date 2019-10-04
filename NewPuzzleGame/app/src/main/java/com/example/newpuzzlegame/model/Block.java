@@ -55,7 +55,7 @@ public class Block {
         RECT_1x2(2, 1, 2),
         RECT_2x1(3, 2, 1),
        RECT_2x2(4, 2, 2),
-        RECT_3x3(5,2,2);
+        RECT_3x3(5,1,1);
 
 
         int value;

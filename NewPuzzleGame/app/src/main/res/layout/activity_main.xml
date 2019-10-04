@@ -112,7 +112,7 @@
                 app:blockDrawable1x2="@color/design_default_color_primary"
                 app:blockDrawable2x1="@color/colorPrimary"
                 app:blockDrawable2x2="@mipmap/twotwo"
-                app:blockDrawable3x3="@color/crimson"
+                app:blockDrawable3x3="@mipmap/klotski"
                 app:blockSpacing="3dp" />
 
 
