@@ -151,7 +151,6 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 mDownX = event.getX();
                 mDownY = event.getY();
 
-
                 touchedId = getTouchedBlock((int) mDownX, (int) mDownY);
 
                 try {
@@ -162,16 +161,14 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                     Log.d("myz", "err :"+e);
                 }
 
-
                 Log.d("myz", "Initial X"+mDownX+" Initial Y"+mDownY);
                 break;
+
             case MotionEvent.ACTION_UP:
                 L.i(this, "ACTION_UP");
                 if (touchedId == -1) {
                     break;
                 }
-
-
 
                 Block b = mBlocks.get(touchedId);
 

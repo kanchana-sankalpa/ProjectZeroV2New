@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     TextView timertxt;
     TextView stepstxt;
     public int seconds = 59;
-    public int minutes = 0;
+    public int minutes = 1;
     Klotski mKlotskiView,klotski;
     AlertDialog alertDialog;
     LinearLayout dis;
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public Timer t;
     public LinearLayout lay;
     int steps = 0;
+    int mode;
+    Button play;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +53,70 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         stepstxt = findViewById(R.id.steps);
+        play = findViewById(R.id.playbtn);
         timertxt = findViewById(R.id.timer);
             lay = findViewById(R.id.lay);
         stepstxt.setText(""+steps);
-
+        timertxt.setText("2:00");
 
 
         dis = findViewById(R.id.dis);
+
+
+
+        Intent intent = getIntent();
+       name = intent.getStringExtra("name");
+       mode = intent.getIntExtra("mode",0);
+        Log.d("myz", "name :" + name);
+
+        if(mode == 2){
+            dis.setVisibility(View.VISIBLE);
+            play.setVisibility(View.VISIBLE);
+        }else{
+            dis.setVisibility(View.GONE);
+            play.setVisibility(View.GONE);
+        }
+
+        //toolbar setup
+        toolbar_main = findViewById(R.id.toolbar_main);
+        toolbar_main.setTitle(name);
+        setSupportActionBar(toolbar_main);
+
+
+
+      //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
+        List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+
+         mKlotskiView = findViewById(R.id.main_klotski);
+        mKlotskiView.setBlocks(blocks);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent play = new Intent(MainActivity.this, Menu.class);
+        play.putExtra("name", name);
+        startActivity(play);
+        finish();
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setSteps(int s){
+        steps += s ;
+        stepstxt.setText(""+steps);
+    }
+
+    public void reset(View v){
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+
+
+    }
+
+    public void play(View v){
         //Declare the timer
-         t = new Timer();
+        t = new Timer();
         //Set the schedule function and rate
         t.scheduleAtFixedRate(new TimerTask() {
 
@@ -89,11 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
                             seconds = 60;
                             minutes = minutes - 1;
-
                         }
-
-
-
                     }
 
                 });
@@ -101,44 +154,6 @@ public class MainActivity extends AppCompatActivity {
 
         }, 0, 1000);
 
-
-        Intent intent = getIntent();
-       name = intent.getStringExtra("name");
-       int mode = intent.getIntExtra("mode",0);
-        Log.d("myz", "name :" + name);
-
-        if(mode == 2){
-            dis.setVisibility(View.VISIBLE);
-        }else{
-            dis.setVisibility(View.GONE);
-        }
-
-        //toolbar setup
-        toolbar_main = findViewById(R.id.toolbar_main);
-        toolbar_main.setTitle(name);
-        setSupportActionBar(toolbar_main);
-
-
-
-      //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
-        List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
-
-         mKlotskiView = findViewById(R.id.main_klotski);
-        mKlotskiView.setBlocks(blocks);
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent play = new Intent(MainActivity.this, Menu.class);
-        play.putExtra("name", name);
-        startActivity(play);
-        finish();
-    }
-
-    @SuppressLint("SetTextI18n")
-    public void setSteps(int s){
-        steps += s ;
-        stepstxt.setText(""+steps);
     }
 }
 
