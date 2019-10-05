@@ -44,11 +44,15 @@ public class MainActivity extends AppCompatActivity {
     public Timer t;
     public LinearLayout lay;
     int steps = 0;
+    int mode;
+    Button play;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        play = findViewById(R.id.playbtn);
 
         stepstxt = findViewById(R.id.steps);
         timertxt = findViewById(R.id.timer);
@@ -56,61 +60,68 @@ public class MainActivity extends AppCompatActivity {
         stepstxt.setText(""+steps);
 
 
+       // timertxt.setText("1:00");
 
         dis = findViewById(R.id.dis);
-        //Declare the timer
-         t = new Timer();
-        //Set the schedule function and rate
-        t.scheduleAtFixedRate(new TimerTask() {
-
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if(seconds < 10) {
-                            timertxt.setText(String.valueOf(minutes) + ":" + "0"+String.valueOf(seconds));
-                        }else{
-                            timertxt.setText(String.valueOf(minutes) + ":" + String.valueOf(seconds));
-                        }
-
-                        seconds -= 1;
-
-                        if(minutes == 0 && seconds == 0){
-                            timertxt.setText(String.valueOf(minutes)+":"+ "00");
-                            mKlotskiView.openDialogtime2();
-                            t.cancel();
-                        }
-
-                        if(seconds == 0)
-                        {
-                            timertxt.setText(String.valueOf(minutes)+":"+ "0"+String.valueOf(seconds));
-
-                            seconds = 60;
-                            minutes = minutes - 1;
-
-                        }
-
-
-
-                    }
-
-                });
-            }
-
-        }, 0, 1000);
-
 
         Intent intent = getIntent();
-       name = intent.getStringExtra("name");
-       int mode = intent.getIntExtra("mode",0);
+        name = intent.getStringExtra("name");
+        // int mode = intent.getIntExtra("mode",0);
+        mode = intent.getIntExtra("mode",0);
         Log.d("myz", "name :" + name);
+
+        
+            //Declare the timer
+            t = new Timer();
+            //Set the schedule function and rate
+            t.scheduleAtFixedRate(new TimerTask() {
+
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if(seconds < 10) {
+                                timertxt.setText(String.valueOf(minutes) + ":" + "0"+String.valueOf(seconds));
+                            }else{
+                                timertxt.setText(String.valueOf(minutes) + ":" + String.valueOf(seconds));
+                            }
+
+                            seconds -= 1;
+
+                            if(minutes == 0 && seconds == 0){
+                                timertxt.setText(String.valueOf(minutes)+":"+ "00");
+                                mKlotskiView.openDialogtime2();
+                                t.cancel();
+                            }
+
+                            if(seconds == 0)
+                            {
+                                timertxt.setText(String.valueOf(minutes)+":"+ "0"+String.valueOf(seconds));
+
+                                seconds = 60;
+                                minutes = minutes - 1;
+
+                            }
+
+
+
+                        }
+
+                    });
+                }
+
+            }, 0, 1000);
+
+
 
         if(mode == 2){
             dis.setVisibility(View.VISIBLE);
+           // play.setVisibility(View.VISIBLE);
         }else{
             dis.setVisibility(View.GONE);
+          //  play.setVisibility(View.GONE);
         }
 
         //toolbar setup
@@ -140,5 +151,16 @@ public class MainActivity extends AppCompatActivity {
         steps += s ;
         stepstxt.setText(""+steps);
     }
+
+    public void reset(View v){
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+
+
+    }
+
+
 }
 
