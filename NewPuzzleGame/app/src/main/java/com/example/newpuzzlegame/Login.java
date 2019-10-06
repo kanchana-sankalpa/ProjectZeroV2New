@@ -69,8 +69,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     String name;
     String email;
     String google_id;
-    DatabaseReference myRef;
+    DatabaseReference myRef,mref;
     FirebaseUser fuser;
+    String f_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +206,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                             Log.d("myz", "signInWithCredential:success");
                                 mAuth.getUid();
                             fuser = mAuth.getCurrentUser();
+                             f_id = fuser.getUid();
                             Log.d("myz", "currentFirebaseUser "+ fuser.getUid());
                             //   updateUI(user);
                             writeNewUser();
@@ -388,35 +390,77 @@ public void addData() {
         user.put("user_name", "");
 
 
-        String f_id = fuser.getUid();
+
+       if(myRef.child("users").child(f_id) == null) {
+
+            myRef.child("users").child(f_id).updateChildren(user)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("myz", "Success");
+
+
+                            SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("f_id", f_id);
+                            editor.apply();
+
+                            Intent username = new Intent(Login.this, UserName.class);
+                            startActivity(username);
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("myz", "Failed");
+                        }
+                    });
+
+        }else{
+
+           Log.d("myz", "data available id      :" + f_id);
+
+
+           mref = FirebaseDatabase.getInstance().getReference().child("users").child(f_id).child("user_name");
+           mref.addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(DataSnapshot dataSnapshot) {
+                  // String snap = dataSnapshot.getValue(String.class);
+                   String name = dataSnapshot.getValue(String.class);
+                   Log.d("myz", "snap  :"+dataSnapshot.toString());
+                   Log.d("myz", "user name set  :"+name);
+                   SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                   SharedPreferences.Editor editor = sharedPref.edit();
+                   editor.putString("f_id", f_id);
+                   editor.putString("uname", name);
+                   editor.apply();
+
+                   Intent username = new Intent(Login.this, Menu.class);
+                   username.putExtra("name", name);
+                   startActivity(username);
+                   finish();
+                   //do what you want with the likes
+               }
+
+               @Override
+               public void onCancelled(DatabaseError databaseError) {
+                   Log.d("myz", "user name  :"+name);
+                   SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                   SharedPreferences.Editor editor = sharedPref.edit();
+                   editor.putString("f_id", f_id);
+                   editor.apply();
+
+                   Intent username = new Intent(Login.this, UserName.class);
+                   startActivity(username);
+                   finish();
+               }
+           });
 
 
 
-        myRef.child("users").child(f_id).updateChildren(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("myz", "Success");
 
-
-                        SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString("f_id", f_id);
-                        editor.apply();
-
-                        Intent username = new Intent(Login.this, UserName.class);
-                        startActivity(username);
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("myz", "Failed");
-                    }
-                });
-
-
+        }
 
     }
 

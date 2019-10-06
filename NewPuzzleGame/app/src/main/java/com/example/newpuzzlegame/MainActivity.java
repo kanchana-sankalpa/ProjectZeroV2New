@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar_main;
     TextView timertxt;
     TextView stepstxt;
-    public int seconds = 59;
+    public int seconds = 60;
     public int minutes = 0;
     Klotski mKlotskiView,klotski;
     AlertDialog alertDialog;
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public Timer t;
     public LinearLayout lay;
     int steps = 0;
+    int mode;
+    LinearLayout time_lay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,64 +56,19 @@ public class MainActivity extends AppCompatActivity {
         timertxt = findViewById(R.id.timer);
             lay = findViewById(R.id.lay);
         stepstxt.setText(""+steps);
-
-
+        timertxt.setText("2:00");
+        time_lay = findViewById(R.id.time_lay);
 
         dis = findViewById(R.id.dis);
-        //Declare the timer
-         t = new Timer();
-        //Set the schedule function and rate
-        t.scheduleAtFixedRate(new TimerTask() {
 
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if(seconds < 10) {
-                            timertxt.setText(String.valueOf(minutes) + ":" + "0"+String.valueOf(seconds));
-                        }else{
-                            timertxt.setText(String.valueOf(minutes) + ":" + String.valueOf(seconds));
-                        }
-
-                        seconds -= 1;
-
-                        if(minutes == 0 && seconds == 0){
-                            timertxt.setText(String.valueOf(minutes)+":"+ "00");
-                            mKlotskiView.openDialogtime2();
-                            t.cancel();
-                        }
-
-                        if(seconds == 0)
-                        {
-                            timertxt.setText(String.valueOf(minutes)+":"+ "0"+String.valueOf(seconds));
-
-                            seconds = 60;
-                            minutes = minutes - 1;
-
-                        }
-
-
-
-                    }
-
-                });
-            }
-
-        }, 0, 1000);
 
 
         Intent intent = getIntent();
        name = intent.getStringExtra("name");
-       int mode = intent.getIntExtra("mode",0);
+       mode = intent.getIntExtra("mode",0);
         Log.d("myz", "name :" + name);
 
-        if(mode == 2){
-            dis.setVisibility(View.VISIBLE);
-        }else{
-            dis.setVisibility(View.GONE);
-        }
+
 
         //toolbar setup
         toolbar_main = findViewById(R.id.toolbar_main);
@@ -121,10 +78,58 @@ public class MainActivity extends AppCompatActivity {
 
 
       //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
-        List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+    //    List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+         List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+
 
          mKlotskiView = findViewById(R.id.main_klotski);
         mKlotskiView.setBlocks(blocks);
+
+        t = new Timer();
+        if(mode == 2){
+            time_lay.setVisibility(View.VISIBLE);
+            //Declare the timer
+
+            //Set the schedule function and rate
+            t.scheduleAtFixedRate(new TimerTask() {
+
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if(seconds < 10) {
+                                timertxt.setText(String.valueOf(minutes) + ":" + "0"+String.valueOf(seconds));
+                            }else{
+                                timertxt.setText(String.valueOf(minutes) + ":" + String.valueOf(seconds));
+                            }
+
+                            seconds -= 1;
+
+                            if(minutes == 0 && seconds == 0){
+                                timertxt.setText(String.valueOf(minutes)+":"+ "00");
+                                mKlotskiView.openDialogtime2();
+                                t.cancel();
+                            }
+
+                            if(seconds == 0)
+                            {
+                                timertxt.setText(String.valueOf(minutes)+":"+ "0"+String.valueOf(seconds));
+
+                                seconds = 60;
+                                minutes = minutes - 1;
+                            }
+                        }
+
+                    });
+                }
+
+            }, 0, 1000);
+
+        }else{
+            time_lay.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -140,5 +145,15 @@ public class MainActivity extends AppCompatActivity {
         steps += s ;
         stepstxt.setText(""+steps);
     }
+
+    public void reset(View v){
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+
+    }
+
+
 }
 

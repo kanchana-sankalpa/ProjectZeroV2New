@@ -26,6 +26,9 @@
     <color name="completed">#66BB6A</color>
     <color name="notattempted">#FFCA28</color>
     <color name="boarder_grey">#E0E0E0</color>
+    <color name="rose">#BC544B</color>
+    <color name="lightrose">#F08080</color>
+
 
     <color name="blue_overlay">#d1ecf1</color>
     <color name="green_overlay">#D4EDD9</color>

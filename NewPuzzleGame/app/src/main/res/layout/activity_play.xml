@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/buttonshape2"
                 android:onClick="playbtn"
-                android:text="@string/Play" />
+                android:text="@string/level1" />
         </LinearLayout>
     </LinearLayout><![CDATA[
 
