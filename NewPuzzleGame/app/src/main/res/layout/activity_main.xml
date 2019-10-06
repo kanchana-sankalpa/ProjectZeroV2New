@@ -38,10 +38,12 @@
             tools:visibility="visible">
 
             <LinearLayout
+                android:id="@+id/time_lay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:visibility="invisible">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -112,7 +114,7 @@
                 app:blockDrawable1x2="@color/design_default_color_primary"
                 app:blockDrawable2x1="@color/colorPrimary"
                 app:blockDrawable2x2="@mipmap/twotwo"
-                app:blockDrawable3x3="@mipmap/klotski"
+                app:blockDrawable3x3="@mipmap/goal_edited"
                 app:blockSpacing="3dp" />
 
 
@@ -146,15 +148,6 @@
                             android:onClick="reset"
                             android:text="@string/reset" />
 
-                        <Button
-                            android:id="@+id/playbtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/buttonshape2"
-                            android:onClick="play"
-                            android:text="@string/Play"
-                            android:visibility="gone" />
                     </LinearLayout>
 
                     <TextView

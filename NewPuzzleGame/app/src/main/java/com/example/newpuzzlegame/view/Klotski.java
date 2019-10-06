@@ -286,7 +286,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     protected int getTouchedBlock(int x, int y) {
-        for (int i = 4; i < mBlocks.size(); i++) {
+        for (int i = 1; i < mBlocks.size(); i++) {
             if (mBlocks.get(i).getRect().contains(x, y)) {
                 return i;
             }
@@ -295,7 +295,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     protected boolean canMove(Rect rect, int ignore) {
-        for (int i = 4; i < mBlocks.size(); i++) {
+        for (int i = 1; i < mBlocks.size(); i++) {
             if ((i != ignore && rect.intersect(mBlocks.get(i).getRect())) || !mRect.contains(rect)) {
                 return false;
             }
