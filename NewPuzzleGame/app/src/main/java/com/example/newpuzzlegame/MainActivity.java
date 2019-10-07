@@ -83,45 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
       //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
     //    List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
-         switch (level){
-             case 0:
-                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,1,3,0,1,0,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
-                 mKlotskiView = findViewById(R.id.main_klotski);
-                 mKlotskiView.setBlocks(blocks);
-                 break;
-             case 1:
-                 blocks = KlotskiMapParser.parse("5,1,3,4,0,0,3,2,0,3,2,1,1,2,2,1,3,2,2,0,3,2,1,3,1,2,3,1,2,4,2,3,3");
-                 mKlotskiView = findViewById(R.id.main_klotski);
-                 mKlotskiView.setBlocks(blocks);
-                 break;
-             case 2:
-                 blocks = KlotskiMapParser.parse("5,1,3,4,2,0,3,0,0,3,0,1,3,0,2,3,2,2,3,0,3,1,2,3,1,3,3,1,0,4,1,1,4");
-                 mKlotskiView = findViewById(R.id.main_klotski);
-                 mKlotskiView.setBlocks(blocks);
-                 break;
-             case 3:
-                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,1,0,0,1,0,1,1,3,0,1,3,1,3,0,2,3,2,2,3,0,3,3,2,3,3,1,4");
-                 mKlotskiView = findViewById(R.id.main_klotski);
-                 mKlotskiView.setBlocks(blocks);
-                 break;
-             case 4:
-                 blocks = KlotskiMapParser.parse("5,1,3,4,1,1,2,0,0,1,1,0,1,2,0,2,3,0,1,0,2,2,0,3,3,1,3,2,3,2,1,3,4");
-                 mKlotskiView = findViewById(R.id.main_klotski);
-                 mKlotskiView.setBlocks(blocks);
-                 break;
-             case 5:
-                 blocks = KlotskiMapParser.parse("5,1,3,4,0,0,1,2,0,1,2,1,2,3,0,3,0,2,3,0,3,3,2,2,3,2,3,1,0,4,1,3,4");
-                 mKlotskiView = findViewById(R.id.main_klotski);
-                 mKlotskiView.setBlocks(blocks);
-                 break;
-             case 6:
-                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,2,0,0,2,3,0,2,0,2,2,3,2,3,1,2,1,1,3,1,2,3,1,0,4,1,3,4");
-                 mKlotskiView = findViewById(R.id.main_klotski);
-                 mKlotskiView.setBlocks(blocks);
-                 break;
-
-
-         }
+        selectLevel(level);
 
 
         t = new Timer();
@@ -187,11 +149,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reset(View v){
+        selectLevel(level);
+//        Intent intent = getIntent();
+//        finish();
+//        startActivity(intent);
 
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-
+    }
+    private void selectLevel(int level){
+        switch (level){
+            case 0:
+                blocks = KlotskiMapParser.parse("5,1,3,4,1,0,1,3,0,1,0,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+                mKlotskiView = findViewById(R.id.main_klotski);
+                mKlotskiView.setBlocks(blocks);
+                break;
+            case 1:
+                blocks = KlotskiMapParser.parse("5,1,3,4,0,0,3,2,0,3,2,1,1,2,2,1,3,2,2,0,3,2,1,3,1,2,3,1,2,4,2,3,3");
+                mKlotskiView = findViewById(R.id.main_klotski);
+                mKlotskiView.setBlocks(blocks);
+                break;
+            case 2:
+                blocks = KlotskiMapParser.parse("5,1,3,4,2,0,3,0,0,3,0,1,3,0,2,3,2,2,3,0,3,1,2,3,1,3,3,1,0,4,1,1,4");
+                mKlotskiView = findViewById(R.id.main_klotski);
+                mKlotskiView.setBlocks(blocks);
+                break;
+            case 3:
+                blocks = KlotskiMapParser.parse("5,1,3,4,1,0,1,0,0,1,0,1,1,3,0,1,3,1,3,0,2,3,2,2,3,0,3,3,2,3,3,1,4");
+                mKlotskiView = findViewById(R.id.main_klotski);
+                mKlotskiView.setBlocks(blocks);
+                break;
+            case 4:
+                blocks = KlotskiMapParser.parse("5,1,3,4,1,1,2,0,0,1,1,0,1,2,0,2,3,0,1,0,2,2,0,3,3,1,3,2,3,2,1,3,4");
+                mKlotskiView = findViewById(R.id.main_klotski);
+                mKlotskiView.setBlocks(blocks);
+                break;
+            case 5:
+                blocks = KlotskiMapParser.parse("5,1,3,4,0,0,1,2,0,1,2,1,2,3,0,3,0,2,3,0,3,3,2,2,3,2,3,1,0,4,1,3,4");
+                mKlotskiView = findViewById(R.id.main_klotski);
+                mKlotskiView.setBlocks(blocks);
+                break;
+            case 6:
+                blocks = KlotskiMapParser.parse("5,1,3,4,1,0,2,0,0,2,3,0,2,0,2,2,3,2,3,1,2,1,1,3,1,2,3,1,0,4,1,3,4");
+                mKlotskiView = findViewById(R.id.main_klotski);
+                mKlotskiView.setBlocks(blocks);
+                break;
+        }
     }
 
 
