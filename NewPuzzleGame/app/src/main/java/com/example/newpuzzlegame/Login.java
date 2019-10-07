@@ -120,6 +120,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     }
 
     public boolean checkConnection() {
+
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -485,6 +486,9 @@ public void addData() {
        }
            );
 
-}
+        }
+
+
+
 }
 
