@@ -9,6 +9,7 @@ import android.view.View;
 public class Play extends AppCompatActivity {
     String name;
     int mode;
+    int level;
     androidx.appcompat.widget.Toolbar toolbar_main;
 
     @Override
@@ -37,10 +38,66 @@ public class Play extends AppCompatActivity {
 
     }
 
-    public void playbtn(View v){
+    public void levelButton1(View v){
+        level = 1;
         Intent play = new Intent(Play.this, MainActivity.class);
         play.putExtra("name", name);
         play.putExtra("mode", mode);
+        play.putExtra("level",level);
+        startActivity(play);
+        finish();
+    }
+    public void levelButton2(View v){
+        level = 2;
+        Intent play = new Intent(Play.this, MainActivity.class);
+        play.putExtra("name", name);
+        play.putExtra("mode", mode);
+        play.putExtra("level",level);
+        startActivity(play);
+        finish();
+    }
+    public void levelButton3(View v){
+        level = 3;
+        Intent play = new Intent(Play.this, MainActivity.class);
+        play.putExtra("name", name);
+        play.putExtra("mode", mode);
+        play.putExtra("level",level);
+        startActivity(play);
+        finish();
+    }
+    public void levelButton4(View v){
+        level = 4;
+        Intent play = new Intent(Play.this, MainActivity.class);
+        play.putExtra("name", name);
+        play.putExtra("mode", mode);
+        play.putExtra("level",level);
+        startActivity(play);
+        finish();
+    }
+    public void levelButton5(View v){
+        level = 5;
+        Intent play = new Intent(Play.this, MainActivity.class);
+        play.putExtra("name", name);
+        play.putExtra("mode", mode);
+        play.putExtra("level",level);
+        startActivity(play);
+        finish();
+    }
+    public void levelButton6(View v){
+        level = 6;
+        Intent play = new Intent(Play.this, MainActivity.class);
+        play.putExtra("name", name);
+        play.putExtra("mode", mode);
+        play.putExtra("level",level);
+        startActivity(play);
+        finish();
+    }
+    public void levelButton0(View v){
+        level = 0;
+        Intent play = new Intent(Play.this, MainActivity.class);
+        play.putExtra("name", name);
+        play.putExtra("mode", mode);
+        play.putExtra("level",level);
         startActivity(play);
         finish();
     }

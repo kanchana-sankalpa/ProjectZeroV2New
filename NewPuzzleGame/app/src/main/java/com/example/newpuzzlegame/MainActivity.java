@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar_main;
     TextView timertxt;
     TextView stepstxt;
-    public int seconds = 59;
+    public int seconds = 60;
     public int minutes = 0;
     Klotski mKlotskiView,klotski;
     AlertDialog alertDialog;
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     public LinearLayout lay;
     int steps = 0;
     int mode;
-    Button play;
 
 
     @Override
@@ -60,19 +59,61 @@ public class MainActivity extends AppCompatActivity {
         stepstxt.setText(""+steps);
 
 
-       // timertxt.setText("1:00");
+        //toolbar setup
+        toolbar_main = findViewById(R.id.toolbar_main);
+        toolbar_main.setTitle(name);
+        setSupportActionBar(toolbar_main);
 
-        dis = findViewById(R.id.dis);
 
-        Intent intent = getIntent();
-        name = intent.getStringExtra("name");
-        // int mode = intent.getIntExtra("mode",0);
-        mode = intent.getIntExtra("mode",0);
-        Log.d("myz", "name :" + name);
 
-        
+      //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
+    //    List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+         switch (level){
+             case 0:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,1,3,0,1,0,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 1:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,0,0,3,2,0,3,2,1,1,2,2,1,3,2,2,0,3,2,1,3,1,2,3,1,2,4,2,3,3");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 2:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,2,0,3,0,0,3,0,1,3,0,2,3,2,2,3,0,3,1,2,3,1,3,3,1,0,4,1,1,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 3:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,1,0,0,1,0,1,1,3,0,1,3,1,3,0,2,3,2,2,3,0,3,3,2,3,3,1,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 4:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,1,1,2,0,0,1,1,0,1,2,0,2,3,0,1,0,2,2,0,3,3,1,3,2,3,2,1,3,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 5:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,0,0,1,2,0,1,2,1,2,3,0,3,0,2,3,0,3,3,2,2,3,2,3,1,0,4,1,3,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 6:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,2,0,0,2,3,0,2,0,2,2,3,2,3,1,2,1,1,3,1,2,3,1,0,4,1,3,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+
+
+         }
+
+
+        t = new Timer();
+        if(mode == 2){
+            time_lay.setVisibility(View.VISIBLE);
             //Declare the timer
-            t = new Timer();
+
             //Set the schedule function and rate
             t.scheduleAtFixedRate(new TimerTask() {
 
@@ -102,11 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 seconds = 60;
                                 minutes = minutes - 1;
-
                             }
-
-
-
                         }
 
                     });
@@ -114,28 +151,9 @@ public class MainActivity extends AppCompatActivity {
 
             }, 0, 1000);
 
-
-
-        if(mode == 2){
-            dis.setVisibility(View.VISIBLE);
-           // play.setVisibility(View.VISIBLE);
         }else{
-            dis.setVisibility(View.GONE);
-          //  play.setVisibility(View.GONE);
+            time_lay.setVisibility(View.INVISIBLE);
         }
-
-        //toolbar setup
-        toolbar_main = findViewById(R.id.toolbar_main);
-        toolbar_main.setTitle(name);
-        setSupportActionBar(toolbar_main);
-
-
-
-      //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
-        List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
-
-         mKlotskiView = findViewById(R.id.main_klotski);
-        mKlotskiView.setBlocks(blocks);
     }
 
     @Override

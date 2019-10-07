@@ -21,6 +21,7 @@
     <string name="time">TIME\'S UP</string>
     <string name="sorry">Sorry your time\'s up\nplease try again.</string>
     <string name="level1">Level 1</string>
+
     <string name="reset">Reset</string>
 
     <string name="ins">The goal is to bring the upper red block to square (red margins) in as few steps as possible.</string>
