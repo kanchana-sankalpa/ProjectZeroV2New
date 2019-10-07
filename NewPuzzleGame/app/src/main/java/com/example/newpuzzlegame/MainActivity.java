@@ -45,33 +45,18 @@ public class MainActivity extends AppCompatActivity {
     public LinearLayout lay;
     int steps = 0;
     int mode;
-    int level;
-    LinearLayout time_lay;
-    List<Block> blocks;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        play = findViewById(R.id.playbtn);
 
         stepstxt = findViewById(R.id.steps);
         timertxt = findViewById(R.id.timer);
             lay = findViewById(R.id.lay);
         stepstxt.setText(""+steps);
-        timertxt.setText("2:00");
-        time_lay = findViewById(R.id.time_lay);
-
-        dis = findViewById(R.id.dis);
-
-
-
-        Intent intent = getIntent();
-       name = intent.getStringExtra("name");
-       mode = intent.getIntExtra("mode",0);
-       level = intent.getIntExtra("level",0);
-
-        Log.d("myz", "name :" + name);
-
 
 
         //toolbar setup
@@ -190,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+
 
     }
 
