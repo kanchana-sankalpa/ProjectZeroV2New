@@ -198,7 +198,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 Log.d("myz", "Touched id" + touchedId);
 
               //  Log.d("myz", "Touch ID  :" + touchedId);
-                if(touchedId==2){
+                if(touchedId==1){
                     Block block = mBlocks.get(touchedId);
                   /*
                     Rect rect = new Rect(block.getRect().left,
