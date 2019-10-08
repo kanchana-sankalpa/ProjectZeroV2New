@@ -3,12 +3,9 @@ package com.example.newpuzzlegame;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -46,20 +43,35 @@ public class MainActivity extends AppCompatActivity {
     String name;
     public Timer t;
     public LinearLayout lay;
-    public int steps = 0;
+    int steps = 0;
     int mode;
-
+    int level;
+    LinearLayout time_lay;
+    List<Block> blocks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        play = findViewById(R.id.playbtn);
 
         stepstxt = findViewById(R.id.steps);
         timertxt = findViewById(R.id.timer);
-            lay = findViewById(R.id.lay);
+        lay = findViewById(R.id.lay);
         stepstxt.setText(""+steps);
+        timertxt.setText("2:00");
+        time_lay = findViewById(R.id.time_lay);
+
+        dis = findViewById(R.id.dis);
+
+
+
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+        mode = intent.getIntExtra("mode",0);
+        level = intent.getIntExtra("level",0);
+
+        Log.d("myz", "name :" + name);
+
 
 
         //toolbar setup
@@ -69,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-      //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
-    //    List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+        //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
+        //    List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
         selectLevel(level);
 
 
@@ -87,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Log.d("myz", "second :" + seconds);
+                            Log.d("myz", "minutes :" + minutes);
                             if(seconds < 10) {
                                 timertxt.setText(String.valueOf(minutes) + ":" + "0"+String.valueOf(seconds));
                             }else{
@@ -96,10 +110,9 @@ public class MainActivity extends AppCompatActivity {
                             seconds -= 1;
 
                             if(minutes == 0 && seconds == 0){
-                                t.cancel();
                                 timertxt.setText(String.valueOf(minutes)+":"+ "00");
                                 mKlotskiView.openDialogtime2();
-
+                                t.cancel();
                             }
 
                             if(seconds == 0)
@@ -183,6 +196,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
 }
+

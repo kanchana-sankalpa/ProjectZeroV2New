@@ -21,10 +21,14 @@
     <string name="time">TIME\'S UP</string>
     <string name="sorry">Sorry your time\'s up\nplease try again.</string>
     <string name="level1">Level 1</string>
+    <string name="level2">Level 2</string>
+    <string name="level3">Level 3</string>
+    <string name="level4">Level 4</string>
+    <string name="level5">Level 5</string>
+    <string name="level6">Level 6</string>
+    <string name="level0">test level</string>
 
     <string name="reset">Reset</string>
-    <string name="score">Score updated successfully</string>
-    <string name="scorenot">Score not updated successfully</string>
 
     <string name="ins">The goal is to bring the upper red block to the final position(At bottom center) in as few steps as possible.</string>
 </resources>
