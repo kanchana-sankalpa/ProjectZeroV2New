@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     String name;
     public Timer t;
     public LinearLayout lay;
-    int steps = 0;
+    public int steps = 0;
     int mode;
     int level;
     LinearLayout time_lay;
@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("myz", "second :" + seconds);
-                            Log.d("myz", "minutes :" + minutes);
                             if(seconds < 10) {
                                 timertxt.setText(String.valueOf(minutes) + ":" + "0"+String.valueOf(seconds));
                             }else{
