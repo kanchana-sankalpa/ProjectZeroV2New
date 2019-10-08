@@ -29,6 +29,8 @@
     <string name="level0">test level</string>
 
     <string name="reset">Reset</string>
+    <string name="score">Score updated successfully</string>
+    <string name="scorenot">Score not updated successfully</string>
 
     <string name="ins">The goal is to bring the upper red block to the final position(At bottom center) in as few steps as possible.</string>
 </resources>
