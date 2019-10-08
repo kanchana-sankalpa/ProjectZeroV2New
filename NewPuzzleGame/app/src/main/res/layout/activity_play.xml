@@ -36,62 +36,6 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/buttonshape2"
-                android:onClick="levelButton1"
-                android:text="@string/level1" />
-            <Button
-                android:id="@+id/level_button_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
-                android:onClick="levelButton2"
-                android:text="@string/level2" />
-            <Button
-                android:id="@+id/level_button_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
-                android:onClick="levelButton3"
-                android:text="@string/level3" />
-            <Button
-                android:id="@+id/level_button_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
-                android:onClick="levelButton4"
-                android:text="@string/level4" />
-            <Button
-                android:id="@+id/level_button_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
-                android:onClick="levelButton5"
-                android:text="@string/level5" />
-            <Button
-                android:id="@+id/level_button_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
-                android:onClick="levelButton6"
-                android:text="@string/level6" />
-            <Button
-                android:id="@+id/level_button_0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
-                android:onClick="levelButton0"
-                android:text="@string/level0" />
 
         </LinearLayout>
     </LinearLayout><![CDATA[
