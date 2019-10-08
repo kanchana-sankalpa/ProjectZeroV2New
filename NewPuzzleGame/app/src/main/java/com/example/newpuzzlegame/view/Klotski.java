@@ -103,7 +103,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         int mHeight = getHeight();
         int mWidth = getWidth();
 
-       MainActivity activity = (MainActivity) getContext();
+        MainActivity activity = (MainActivity) getContext();
         activity.lay.setLayoutParams(getLayoutParams());
 
         Log.d("myz", "before adjust the height -> " + mHeight + " width -> " + mWidth);
@@ -197,7 +197,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 mDownY = 0;
                 Log.d("myz", "Touched id" + touchedId);
 
-              //  Log.d("myz", "Touch ID  :" + touchedId);
+                //  Log.d("myz", "Touch ID  :" + touchedId);
                 if(touchedId==1){
                     Block block = mBlocks.get(touchedId);
                   /*
@@ -205,7 +205,6 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                             block.getRect().top,
                             block.getRect().right,
                             block.getRect().bottom);
-
                     Log.d("myz", "rect.left :"+ rect.left + "   event.getX()  :"+event.getX()+"   mLastX:   "+mLastX);
                     Log.d("myz", "rect.top :"+ rect.top + "   event.getY()  :"+event.getY()+"   mLastY:   "+mLastY);
                     Log.d("myz", "mCellHeight :"+ mCellHeight);
@@ -233,7 +232,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 break;
             case MotionEvent.ACTION_MOVE:
                 L.i(this, "ACTION_MOVE");
-              //  Log.d("myz", "ACTION_MOVE");
+                //  Log.d("myz", "ACTION_MOVE");
                 if (touchedId == -1) {
                     break;
                 }
@@ -457,8 +456,6 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 // Perform Action on Button
             }
         });
-
-
 */
 
 
@@ -524,8 +521,6 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 // Perform Action on Button
             }
         });
-
-
 */
 
 
@@ -552,4 +547,3 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         cancelBT.setLayoutParams(negBtnLP);
     }
 }
-

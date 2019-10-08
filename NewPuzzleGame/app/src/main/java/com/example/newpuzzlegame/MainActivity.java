@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         stepstxt = findViewById(R.id.steps);
         timertxt = findViewById(R.id.timer);
-            lay = findViewById(R.id.lay);
+        lay = findViewById(R.id.lay);
         stepstxt.setText(""+steps);
         timertxt.setText("2:00");
         time_lay = findViewById(R.id.time_lay);
@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-       name = intent.getStringExtra("name");
-       mode = intent.getIntExtra("mode",0);
-       level = intent.getIntExtra("level",0);
+        name = intent.getStringExtra("name");
+        mode = intent.getIntExtra("mode",0);
+        level = intent.getIntExtra("level",0);
 
         Log.d("myz", "name :" + name);
 
@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-      //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
-    //    List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+        //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
+        //    List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
         selectLevel(level);
 
 

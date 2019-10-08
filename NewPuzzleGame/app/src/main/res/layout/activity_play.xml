@@ -94,10 +94,5 @@
                 android:text="@string/level0" />
 
         </LinearLayout>
-    </LinearLayout><![CDATA[
-
-    =======
-    >>>>>>> parent of e01cf28... Revert "Merge pull request #1 from kanchana-sankalpa/kanchana2"
-
-    ]]>
+    </LinearLayout>
 </LinearLayout>
