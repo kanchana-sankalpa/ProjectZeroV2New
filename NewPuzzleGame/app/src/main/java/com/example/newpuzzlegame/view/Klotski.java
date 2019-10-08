@@ -234,6 +234,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                         Log.d("myz", "You Won");
                         MainActivity x = (MainActivity) getContext();
                         x.t.cancel();
+                        Log.d("time",String.valueOf(x.seconds));
+                        Log.d("steps",String.valueOf(x.steps));
                         openDialogtime();
                     }
 
