@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,6 +17,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -27,14 +30,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.newpuzzlegame.MainActivity;
 import com.example.newpuzzlegame.Menu;
 import com.example.newpuzzlegame.R;
-import com.example.newpuzzlegame.UserName;
 import com.example.newpuzzlegame.model.Block;
 import com.example.newpuzzlegame.util.Dimension;
 import com.example.newpuzzlegame.util.L;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -64,9 +74,11 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     private Drawable mDrawable2x2;
     private Drawable mDrawable3x3;
 
+    DatabaseReference myref,myrefnew;
+
     int firstx,firsty;
     float lastx,lasty;
-
+    String f_id;
 
     public Klotski(Context context) { this(context, null);
     }
@@ -84,6 +96,11 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         mSurfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
 
         setWillNotDraw(false);
+
+        SharedPreferences mSettings = getContext().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        f_id = mSettings.getString("f_id","");
+
+        myref = FirebaseDatabase.getInstance().getReference().child("users").child(f_id).child("user_name");
 
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.Klotski);
         mBlockSpacing = ta.getDimension(R.styleable.Klotski_blockSpacing, Dimension.dp2px(getContext(), 3));
@@ -512,6 +529,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
             @SuppressLint("SetTextI18n")
             public void onClick(DialogInterface dialog, int which) {
 
+
                 Intent username = new Intent(getContext(), Menu.class);
                 ((Activity)getContext()).startActivity(username);
                 ((Activity)getContext()).finish();
@@ -528,8 +546,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
 
 */
 
-
-
+        getScore();
 
         new Dialog(getContext());
         alertDialog.setCanceledOnTouchOutside(false);
@@ -550,6 +567,62 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         negBtnLP.gravity = Gravity.FILL_HORIZONTAL;
         cancelBT.setTextColor(R.color.grey1);
         cancelBT.setLayoutParams(negBtnLP);
+
+
+    }
+
+    public void getScore(){
+        myref = FirebaseDatabase.getInstance().getReference().child("users").child(f_id).child("score");
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // String snap = dataSnapshot.getValue(String.class);
+                Log.d("myz", "snap  :"+dataSnapshot.toString());
+                int score;
+                Long scor = dataSnapshot.getValue(Long.class);
+
+                assert scor != null;
+                if(scor.equals("")){
+                    score = 0;
+                }else {
+                    score = Integer.parseInt(String.valueOf(scor));
+                }
+                Log.d("myz", "score set  :"+score);
+
+
+                setScore(score);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("myz", "Error set score");
+
+            }
+        });
+    }
+
+    public void setScore(int score){
+
+        int s = score + 1;
+        myrefnew = FirebaseDatabase.getInstance().getReference();
+        myrefnew.child("users").child(f_id).child("score").setValue(s)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("myz", "Success");
+
+                       Toast.makeText(getContext(), ""+getContext().getString(R.string.score), Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), ""+getContext().getString(R.string.scorenot), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
     }
 }
 

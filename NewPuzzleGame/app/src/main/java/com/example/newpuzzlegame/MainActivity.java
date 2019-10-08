@@ -111,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
                             seconds -= 1;
 
                             if(minutes == 0 && seconds == 0){
+                                t.cancel();
                                 timertxt.setText(String.valueOf(minutes)+":"+ "00");
                                 mKlotskiView.openDialogtime2();
-                                t.cancel();
+
                             }
 
                             if(seconds == 0)
