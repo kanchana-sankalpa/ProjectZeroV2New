@@ -3,9 +3,12 @@ package com.example.newpuzzlegame;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -45,33 +48,18 @@ public class MainActivity extends AppCompatActivity {
     public LinearLayout lay;
     int steps = 0;
     int mode;
-    int level;
-    LinearLayout time_lay;
-    List<Block> blocks;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        play = findViewById(R.id.playbtn);
 
         stepstxt = findViewById(R.id.steps);
         timertxt = findViewById(R.id.timer);
             lay = findViewById(R.id.lay);
         stepstxt.setText(""+steps);
-        timertxt.setText("2:00");
-        time_lay = findViewById(R.id.time_lay);
-
-        dis = findViewById(R.id.dis);
-
-
-
-        Intent intent = getIntent();
-       name = intent.getStringExtra("name");
-       mode = intent.getIntExtra("mode",0);
-       level = intent.getIntExtra("level",0);
-
-        Log.d("myz", "name :" + name);
-
 
 
         //toolbar setup
@@ -148,9 +136,10 @@ public class MainActivity extends AppCompatActivity {
                             seconds -= 1;
 
                             if(minutes == 0 && seconds == 0){
+                                t.cancel();
                                 timertxt.setText(String.valueOf(minutes)+":"+ "00");
                                 mKlotskiView.openDialogtime2();
-                                t.cancel();
+
                             }
 
                             if(seconds == 0)
@@ -192,7 +181,10 @@ public class MainActivity extends AppCompatActivity {
         finish();
         startActivity(intent);
 
+
     }
+
+
 
 
 }
