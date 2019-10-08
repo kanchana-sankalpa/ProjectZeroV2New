@@ -579,15 +579,21 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 // String snap = dataSnapshot.getValue(String.class);
                 Log.d("myz", "snap  :"+dataSnapshot.toString());
                 int score;
-                Long scor = dataSnapshot.getValue(Long.class);
+                if(dataSnapshot.exists()){
+                    Long scor = dataSnapshot.getValue(Long.class);
 
-                assert scor != null;
-                if(scor.equals("")){
-                    score = 0;
+                    assert scor != null;
+                    if(dataSnapshot.exists() && scor.equals("")){
+                        score = 0;
+                    }else {
+                        score = Integer.parseInt(String.valueOf(scor));
+                    }
+                    Log.d("myz", "score set  :"+score);
                 }else {
-                    score = Integer.parseInt(String.valueOf(scor));
+                    Log.d("myz", "score snapshot not exist  :");
+                    score = 0;
                 }
-                Log.d("myz", "score set  :"+score);
+
 
 
                 setScore(score);
