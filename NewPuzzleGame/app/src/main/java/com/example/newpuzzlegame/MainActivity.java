@@ -125,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            Log.d("myz", "second :" + seconds);
+                            Log.d("myz", "minutes :" + minutes);
                             if(seconds < 10) {
                                 timertxt.setText(String.valueOf(minutes) + ":" + "0"+String.valueOf(seconds));
                             }else{

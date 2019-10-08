@@ -114,8 +114,8 @@
                 app:blockDrawable1x2="@color/design_default_color_primary"
                 app:blockDrawable2x1="@color/colorPrimary"
                 app:blockDrawable2x2="@mipmap/twotwo"
-                app:blockDrawable3x3="@mipmap/edited"
-                app:blockSpacing="3dp" />
+                app:blockDrawable3x3="@mipmap/goal_edited"
+                app:blockSpacing="10dp" />
 
 
         </LinearLayout>
@@ -136,7 +136,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
-
                         <Button
                             android:id="@+id/button4"
                             android:layout_width="wrap_content"
@@ -145,9 +144,13 @@
                             android:background="@drawable/buttonshape2"
                             android:onClick="reset"
                             android:text="@string/reset" />
-
-
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="106dp"
+                        app:srcCompat="@drawable/target_arrow" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -157,6 +160,15 @@
                         android:text="@string/ins"
                         android:textColor="@color/floralwhite"
                         android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/buttonshape2"
+                        android:onClick="reset"
+                        android:text="@string/reset" />
 
                 </LinearLayout>
             </ScrollView>
