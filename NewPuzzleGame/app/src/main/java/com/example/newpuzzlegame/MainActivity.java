@@ -3,9 +3,12 @@ package com.example.newpuzzlegame;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -132,9 +135,10 @@ public class MainActivity extends AppCompatActivity {
                             seconds -= 1;
 
                             if(minutes == 0 && seconds == 0){
+                                t.cancel();
                                 timertxt.setText(String.valueOf(minutes)+":"+ "00");
                                 mKlotskiView.openDialogtime2();
-                                t.cancel();
+
                             }
 
                             if(seconds == 0)
@@ -178,6 +182,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
 }
