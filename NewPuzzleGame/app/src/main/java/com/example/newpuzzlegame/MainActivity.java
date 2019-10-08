@@ -48,29 +48,18 @@ public class MainActivity extends AppCompatActivity {
     public LinearLayout lay;
     int steps = 0;
     int mode;
-    LinearLayout time_lay;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        play = findViewById(R.id.playbtn);
 
         stepstxt = findViewById(R.id.steps);
         timertxt = findViewById(R.id.timer);
             lay = findViewById(R.id.lay);
         stepstxt.setText(""+steps);
-        timertxt.setText("2:00");
-        time_lay = findViewById(R.id.time_lay);
-
-        dis = findViewById(R.id.dis);
-
-
-
-        Intent intent = getIntent();
-       name = intent.getStringExtra("name");
-       mode = intent.getIntExtra("mode",0);
-        Log.d("myz", "name :" + name);
-
 
 
         //toolbar setup
@@ -82,11 +71,46 @@ public class MainActivity extends AppCompatActivity {
 
       //  List<Block> blocks = KlotskiMapParser.parse("2,0,0,4,1,0,2,3,0,2,0,2,3,1,2,2,3,2,1,1,3,1,2,3,1,0,4,1,3,4");
     //    List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
-         List<Block> blocks = KlotskiMapParser.parse("5,1,3,1,0,0,4,1,0,1,3,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+         switch (level){
+             case 0:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,1,3,0,1,0,0,1,0,1,1,1,2,1,2,2,1,3,1,2,0,2,1,1,3,1,2,3,2,3,2,1,0,4,1,3,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 1:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,0,0,3,2,0,3,2,1,1,2,2,1,3,2,2,0,3,2,1,3,1,2,3,1,2,4,2,3,3");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 2:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,2,0,3,0,0,3,0,1,3,0,2,3,2,2,3,0,3,1,2,3,1,3,3,1,0,4,1,1,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 3:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,1,0,0,1,0,1,1,3,0,1,3,1,3,0,2,3,2,2,3,0,3,3,2,3,3,1,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 4:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,1,1,2,0,0,1,1,0,1,2,0,2,3,0,1,0,2,2,0,3,3,1,3,2,3,2,1,3,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 5:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,0,0,1,2,0,1,2,1,2,3,0,3,0,2,3,0,3,3,2,2,3,2,3,1,0,4,1,3,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
+             case 6:
+                 blocks = KlotskiMapParser.parse("5,1,3,4,1,0,2,0,0,2,3,0,2,0,2,2,3,2,3,1,2,1,1,3,1,2,3,1,0,4,1,3,4");
+                 mKlotskiView = findViewById(R.id.main_klotski);
+                 mKlotskiView.setBlocks(blocks);
+                 break;
 
 
-         mKlotskiView = findViewById(R.id.main_klotski);
-        mKlotskiView.setBlocks(blocks);
+         }
+
 
         t = new Timer();
         if(mode == 2){
@@ -155,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+
 
     }
 
