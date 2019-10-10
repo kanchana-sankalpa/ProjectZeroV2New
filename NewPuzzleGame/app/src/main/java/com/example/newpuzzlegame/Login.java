@@ -166,6 +166,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     @Override
     public void onStart() {
         super.onStart();
+
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("myz", "currentUser :"+currentUser);
@@ -218,7 +219,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                             //   updateUI(null);
                         }
 
-                        // ...
                     }
                 });
     }
