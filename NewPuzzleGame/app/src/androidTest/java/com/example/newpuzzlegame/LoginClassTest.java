@@ -8,6 +8,11 @@ import org.junit.Test;
 
 import androidx.test.rule.ActivityTestRule;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.junit.Assert.assertTrue;
+
 public class LoginClassTest {
 
 
@@ -18,13 +23,9 @@ public class LoginClassTest {
     // 1.1
     @Test
     public void checkforconnections() {
-        
+        onView(withId(R.id.signin_google)).perform(click());
+        assertTrue(mActivityRule.getActivity().checkConnection());
     }
 
-    // 1.2
-    @Test
-    public void wheninputisbetween0to100() {
-        InputValidation.input(50);
-        Assert.assertTrue(true);
-    }
+
 }

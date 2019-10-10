@@ -166,6 +166,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     @Override
     public void onStart() {
         super.onStart();
+
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("myz", "currentUser :"+currentUser);
@@ -218,7 +219,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                             //   updateUI(null);
                         }
 
-                        // ...
                     }
                 });
     }
@@ -452,6 +452,7 @@ public void addData() {
 
                                                     @Override
                                                     public void onCancelled(DatabaseError databaseError) {
+
                                                         Log.d("myz", "user name  :" + name);
                                                         SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
                                                         SharedPreferences.Editor editor = sharedPref.edit();
@@ -461,6 +462,7 @@ public void addData() {
                                                         Intent username = new Intent(Login.this, UserName.class);
                                                         startActivity(username);
                                                         finish();
+                                                        
                                                     }
                                                 });
                                             }
