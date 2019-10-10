@@ -452,6 +452,7 @@ public void addData() {
 
                                                     @Override
                                                     public void onCancelled(DatabaseError databaseError) {
+
                                                         Log.d("myz", "user name  :" + name);
                                                         SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
                                                         SharedPreferences.Editor editor = sharedPref.edit();
@@ -461,6 +462,7 @@ public void addData() {
                                                         Intent username = new Intent(Login.this, UserName.class);
                                                         startActivity(username);
                                                         finish();
+                                                        
                                                     }
                                                 });
                                             }
