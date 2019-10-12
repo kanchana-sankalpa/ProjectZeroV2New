@@ -405,7 +405,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 }
                 canvas = null;
                 try {
-                    canvas = mSurfaceHolder.lockCanvas(null);
+                    canvas = mSurfaceHolder.lockCanvas();
                     synchronized (mSurfaceHolder) {
                         draw(canvas);
                     }
