@@ -101,10 +101,4 @@ public class Play extends AppCompatActivity {
         startActivity(play);
         finish();
     }
-    public void onBackPressed() {
-        Intent menu = new Intent(Play.this, Menu.class);
-        startActivity(menu);
-        finish();
-        return;
-    }
 }
