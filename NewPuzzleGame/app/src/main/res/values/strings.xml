@@ -16,7 +16,8 @@
     <string name="relax">RELAX MODE</string>
 
     <string name="achieved">LEVEL SOLVED</string>
-    <string name="won">Congratulations\nYou solved the puzzle</string>
+    <string name="won_relax">Congratulations\nYou spent %1$d steps to solve this puzzle.</string>
+    <string name="won_challenge">Congratulations\nYou spent %1$d steps to solve this puzzle in %2$d seconds.</string>
     <string name="finishcl">EXIT</string>
     <string name="time">TIME\'S UP</string>
     <string name="sorry">Sorry your time\'s up\nplease try again.</string>
