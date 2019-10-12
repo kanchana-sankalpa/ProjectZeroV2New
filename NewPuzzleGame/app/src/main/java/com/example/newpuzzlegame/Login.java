@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     String name;
     String email;
     String google_id;
-    DatabaseReference myRef,mref;
+    DatabaseReference myRef,mref,testRef;
     FirebaseUser fuser;
     String f_id;
 
@@ -120,6 +120,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     }
 
     public boolean checkConnection() {
+
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -165,6 +166,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
     @Override
     public void onStart() {
         super.onStart();
+/*
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("myz", "currentUser :"+currentUser);
@@ -188,6 +190,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
             }
         }
         // updateUI(currentUser);
+
+ */
     }
 
 
@@ -217,9 +221,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Go
                             //   updateUI(null);
                         }
 
-                        // ...
                     }
                 });
+
     }
 
 
@@ -381,90 +385,105 @@ public void addData() {
 
     }
     private void writeNewUser() {
-      //  User user = new User(name, email);
+        //  User user = new User(name, email);
 
-        Map<String,Object> user = new HashMap<String,Object>();
+        Map<String, Object> user = new HashMap<String, Object>();
         user.put("name", name);
         user.put("email", email);
         user.put("pic", user_pic_url);
         user.put("user_name", "");
+        user.put("score", 0);
 
 
+        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(f_id);
+        myRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-       if(myRef.child("users").child(f_id) == null) {
-
-            myRef.child("users").child(f_id).updateChildren(user)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("myz", "Success");
-
-
-                            SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("f_id", f_id);
-                            editor.apply();
-
-                            Intent username = new Intent(Login.this, UserName.class);
-                            startActivity(username);
-                            finish();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("myz", "Failed");
-                        }
-                    });
-
-        }else{
-
-           Log.d("myz", "data available id      :" + f_id);
+                                            Log.d("myz", "snap  :" + dataSnapshot.toString());
+                                            if (dataSnapshot.getValue() == null) {
+                                                testRef = FirebaseDatabase.getInstance().getReference();
+                                                Log.d("myz", "data not available id      :" + f_id);
+                                                testRef.child("users").child(f_id).updateChildren(user)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d("myz", "Success");
 
 
-           mref = FirebaseDatabase.getInstance().getReference().child("users").child(f_id).child("user_name");
-           mref.addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(DataSnapshot dataSnapshot) {
-                  // String snap = dataSnapshot.getValue(String.class);
-                   String name = dataSnapshot.getValue(String.class);
-                   Log.d("myz", "snap  :"+dataSnapshot.toString());
-                   Log.d("myz", "user name set  :"+name);
-                   SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                   SharedPreferences.Editor editor = sharedPref.edit();
-                   editor.putString("f_id", f_id);
-                   editor.putString("uname", name);
-                   editor.apply();
+                                                                SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                                                                SharedPreferences.Editor editor = sharedPref.edit();
+                                                                editor.putString("f_id", f_id);
+                                                                editor.apply();
 
-                   Intent username = new Intent(Login.this, Menu.class);
-                   username.putExtra("name", name);
-                   startActivity(username);
-                   finish();
-                   //do what you want with the likes
-               }
-
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
-                   Log.d("myz", "user name  :"+name);
-                   SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                   SharedPreferences.Editor editor = sharedPref.edit();
-                   editor.putString("f_id", f_id);
-                   editor.apply();
-
-                   Intent username = new Intent(Login.this, UserName.class);
-                   startActivity(username);
-                   finish();
-               }
-           });
+                                                                Intent username = new Intent(Login.this, UserName.class);
+                                                                startActivity(username);
+                                                                finish();
 
 
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.d("myz", "Failed");
+                                                            }
+                                                        });
+
+                                            } else {
+                                                Log.d("myz", "data available id      :" + f_id);
 
 
-        }
+                                                mref = FirebaseDatabase.getInstance().getReference().child("users").child(f_id).child("user_name");
+                                                mref.addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        // String snap = dataSnapshot.getValue(String.class);
+                                                        String name = dataSnapshot.getValue(String.class);
+                                                        Log.d("myz", "snap  :" + dataSnapshot.toString());
+                                                        Log.d("myz", "user name set  :" + name);
+                                                        SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                                        editor.putString("f_id", f_id);
+                                                        editor.putString("uname", name);
+                                                        editor.apply();
 
+                                                        Intent username = new Intent(Login.this, Menu.class);
+                                                        username.putExtra("name", name);
+                                                        startActivity(username);
+                                                        finish();
+                                                        //do what you want with the likes
+
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                        Log.d("myz", "user name  :" + name);
+                                                        SharedPreferences sharedPref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                                        editor.putString("f_id", f_id);
+                                                        editor.apply();
+
+                                                        Intent username = new Intent(Login.this, UserName.class);
+                                                        startActivity(username);
+                                                        finish();
+                                                        
+                                                    }
+                                                });
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    }
+        );
     }
-
-   public void checknewuser(){
+            public void checknewuser(){
        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(google_id);
        databaseReference.addValueEventListener(new ValueEventListener() {
            @Override
@@ -485,6 +504,10 @@ public void addData() {
        }
            );
 
+        }
+
+
+
 }
-}
+
 

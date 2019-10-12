@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:id="@+id/drawer"
-        android:layout_height="match_parent"
-        android:layoutDirection="ltr"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/drawer"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     android:background="@drawable/back"
-        tools:context=".MainActivity"
-        tools:ignore="UnusedAttribute">
+    tools:context=".MainActivity"
+    tools:ignore="UnusedAttribute">
 
 
 
@@ -104,7 +104,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <com.example.newpuzzlegame.view.Klotski
                 android:id="@+id/main_klotski"
                 android:layout_width="match_parent"
@@ -115,7 +114,7 @@
                 app:blockDrawable2x1="@color/colorPrimary"
                 app:blockDrawable2x2="@mipmap/twotwo"
                 app:blockDrawable3x3="@mipmap/goal_edited"
-                app:blockSpacing="3dp" />
+                app:blockSpacing="10dp" />
 
 
         </LinearLayout>
@@ -125,7 +124,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -137,17 +138,13 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/button4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/buttonshape2"
-                            android:onClick="reset"
-                            android:text="@string/reset" />
-
-
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="106dp"
+                        app:srcCompat="@drawable/target_arrow" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -157,6 +154,15 @@
                         android:text="@string/ins"
                         android:textColor="@color/floralwhite"
                         android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/buttonshape2"
+                        android:onClick="reset"
+                        android:text="@string/reset" />
 
                 </LinearLayout>
             </ScrollView>

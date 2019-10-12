@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,6 +17,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -27,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.newpuzzlegame.MainActivity;
 import com.example.newpuzzlegame.Menu;
@@ -35,6 +39,13 @@ import com.example.newpuzzlegame.UserName;
 import com.example.newpuzzlegame.model.Block;
 import com.example.newpuzzlegame.util.Dimension;
 import com.example.newpuzzlegame.util.L;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -64,9 +75,11 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     private Drawable mDrawable2x2;
     private Drawable mDrawable3x3;
 
+    String f_id;
+
     int firstx,firsty;
     float lastx,lasty;
-
+    DatabaseReference myref,myrefnew;
 
     public Klotski(Context context) { this(context, null);
     }
@@ -82,6 +95,9 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         mSurfaceHolder.addCallback(this);
         setZOrderOnTop(true);
         mSurfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
+
+        SharedPreferences mSettings = getContext().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        f_id = mSettings.getString("f_id","");
 
         setWillNotDraw(false);
 
@@ -103,7 +119,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         int mHeight = getHeight();
         int mWidth = getWidth();
 
-       MainActivity activity = (MainActivity) getContext();
+        MainActivity activity = (MainActivity) getContext();
         activity.lay.setLayoutParams(getLayoutParams());
 
         Log.d("myz", "before adjust the height -> " + mHeight + " width -> " + mWidth);
@@ -197,7 +213,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 mDownY = 0;
                 Log.d("myz", "Touched id" + touchedId);
 
-              //  Log.d("myz", "Touch ID  :" + touchedId);
+                //  Log.d("myz", "Touch ID  :" + touchedId);
                 if(touchedId==1){
                     Block block = mBlocks.get(touchedId);
                   /*
@@ -205,7 +221,6 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                             block.getRect().top,
                             block.getRect().right,
                             block.getRect().bottom);
-
                     Log.d("myz", "rect.left :"+ rect.left + "   event.getX()  :"+event.getX()+"   mLastX:   "+mLastX);
                     Log.d("myz", "rect.top :"+ rect.top + "   event.getY()  :"+event.getY()+"   mLastY:   "+mLastY);
                     Log.d("myz", "mCellHeight :"+ mCellHeight);
@@ -233,7 +248,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 break;
             case MotionEvent.ACTION_MOVE:
                 L.i(this, "ACTION_MOVE");
-              //  Log.d("myz", "ACTION_MOVE");
+                //  Log.d("myz", "ACTION_MOVE");
                 if (touchedId == -1) {
                     break;
                 }
@@ -457,13 +472,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 // Perform Action on Button
             }
         });
-
-
 */
-
-
-
-
         new Dialog(getContext());
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.setCancelable(false);
@@ -524,12 +533,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 // Perform Action on Button
             }
         });
-
-
 */
-
-
-
+        getScore();
 
         new Dialog(getContext());
         alertDialog.setCanceledOnTouchOutside(false);
@@ -551,5 +556,59 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         cancelBT.setTextColor(R.color.grey1);
         cancelBT.setLayoutParams(negBtnLP);
     }
-}
 
+
+    public void getScore(){
+        myref = FirebaseDatabase.getInstance().getReference().child("users").child(f_id).child("score");
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // String snap = dataSnapshot.getValue(String.class);
+                Log.d("myz", "snap  :"+dataSnapshot.toString());
+                int score;
+                Long scor = dataSnapshot.getValue(Long.class);
+
+                assert scor != null;
+                if(scor.equals("")){
+                    score = 0;
+                }else {
+                    score = Integer.parseInt(String.valueOf(scor));
+                }
+                Log.d("myz", "score set  :"+score);
+
+
+                setScore(score);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("myz", "Error set score");
+
+            }
+        });
+    }
+
+    public void setScore(int score){
+
+        int s = score + 1;
+        myrefnew = FirebaseDatabase.getInstance().getReference();
+        myrefnew.child("users").child(f_id).child("score").setValue(s)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("myz", "Success");
+
+                        Toast.makeText(getContext(), ""+getContext().getString(R.string.score), Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), ""+getContext().getString(R.string.scorenot), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+    }
+}
