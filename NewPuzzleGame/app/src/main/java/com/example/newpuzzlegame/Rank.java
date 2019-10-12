@@ -33,6 +33,11 @@ public class Rank extends AppCompatActivity {
         ListView rank = findViewById(R.id.rank);
         rank.setAdapter(adapter);
 }
+    @Override
+    public void onBackPressed() {
+        finish();
+        return;
+    }
 
 public void ReadData(){
 
