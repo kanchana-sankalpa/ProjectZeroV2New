@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.example.newpuzzlegame.MainActivity;
 import com.example.newpuzzlegame.Menu;
+import com.example.newpuzzlegame.Play;
 import com.example.newpuzzlegame.R;
 import com.example.newpuzzlegame.UserName;
 import com.example.newpuzzlegame.model.Block;
@@ -48,6 +49,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.Math.abs;
 
@@ -76,6 +78,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     private Drawable mDrawable3x3;
 
     String f_id;
+    public int onlineScore;
+    public int thisScore;
 
     int firstx,firsty;
     float lastx,lasty;
@@ -119,7 +123,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         int mHeight = getHeight();
         int mWidth = getWidth();
 
-        MainActivity activity = (MainActivity) getContext();
+        MainActivity activity =  (MainActivity)getContext();
         activity.lay.setLayoutParams(getLayoutParams());
 
         Log.d("myz", "before adjust the height -> " + mHeight + " width -> " + mWidth);
@@ -370,7 +374,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
 
     private class DrawThread extends Thread {
 
-        private SurfaceHolder mSurfaceHolder;
+    private SurfaceHolder mSurfaceHolder;
         private boolean running;
 
         private List<Block> mBlocks;
@@ -496,6 +500,13 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
 
     @SuppressLint("ResourceAsColor")
     public void openDialogtime(){
+        MainActivity activity =  (MainActivity)getContext();
+        int mode = activity.mode;
+        int steps = activity.steps;
+        int seconds = activity.seconds;
+        int level = activity.level;
+        Intent play = new Intent(getContext(), Play.class);
+        play.putExtra("mode",mode);
 
         alertDialog = new AlertDialog.Builder(getContext()).create();
         // Set Custom Title
@@ -507,34 +518,59 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         title.setTextColor(Color.BLACK);
         title.setTextSize(20);
         alertDialog.setCustomTitle(title);
+        if (mode==1){
+            // Set Message
+            TextView msg = new TextView(getContext());
+            // Message Properties
+            msg.setText(getResources().getString(R.string.won_relax,steps));
+            msg.setGravity(Gravity.CENTER_HORIZONTAL);
+            msg.setTextColor(Color.BLACK);
+            alertDialog.setView(msg);
+        }
+        else if (mode== 2){
+            // Set Message
+            TextView msg = new TextView(getContext());
+            // Message Properties
+            msg.setText(getResources().getString(R.string.won_challenge,steps,(59-seconds)));
+            msg.setGravity(Gravity.CENTER_HORIZONTAL);
+            msg.setTextColor(Color.BLACK);
+            thisScore = level*5000/((59-seconds)+steps);
+            alertDialog.setView(msg);
+            getScore();
 
-        // Set Message
-        TextView msg = new TextView(getContext());
-        // Message Properties
-        msg.setText(R.string.won);
-        msg.setGravity(Gravity.CENTER_HORIZONTAL);
-        msg.setTextColor(Color.BLACK);
-        alertDialog.setView(msg);
+            Log.d("joshua","this time score"+Integer.toString(thisScore));
+        }
+
         // Set Button
         // you can more buttons
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,""+getResources().getString(R.string.finishcl), new DialogInterface.OnClickListener() {
             @SuppressLint("SetTextI18n")
             public void onClick(DialogInterface dialog, int which) {
-
+                Log.d("joshua","next exit"+Integer.toString(onlineScore));
+                if (onlineScore< thisScore){
+                    setScore(thisScore);
+                    Log.d("joshua","get online"+Integer.toString(onlineScore));
+                }
                 Intent username = new Intent(getContext(), Menu.class);
                 ((Activity)getContext()).startActivity(username);
                 ((Activity)getContext()).finish();
 
             }
         });
-/*
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CANCEL", new DialogInterface.OnClickListener() {
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"Next level", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                // Perform Action on Button
+                Log.d("joshua","next online"+Integer.toString(onlineScore));
+                if (onlineScore< thisScore){
+                    setScore(thisScore);
+
+                }
+                activity.startActivity(play);
+                activity.finish();
             }
         });
-*/
-        getScore();
+
+
 
         new Dialog(getContext());
         alertDialog.setCanceledOnTouchOutside(false);
@@ -565,21 +601,21 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // String snap = dataSnapshot.getValue(String.class);
                 Log.d("myz", "snap  :"+dataSnapshot.toString());
-                int score;
                 Long scor = dataSnapshot.getValue(Long.class);
 
                 assert scor != null;
                 if(scor.equals("")){
-                    score = 0;
+                    onlineScore = 0;
                 }else {
-                    score = Integer.parseInt(String.valueOf(scor));
+                    onlineScore= new Long(scor).intValue();
+                    Log.d("joshua","getonline"+Integer.toString(onlineScore));
                 }
-                Log.d("myz", "score set  :"+score);
+                Log.d("joshua", "score set  :"+onlineScore);
 
 
-                setScore(score);
 
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -589,24 +625,25 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         });
     }
 
-    public void setScore(int score){
+    public void setScore(int thisScore){
 
-        int s = score + 1;
+        int s = thisScore;
         myrefnew = FirebaseDatabase.getInstance().getReference();
         myrefnew.child("users").child(f_id).child("score").setValue(s)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("myz", "Success");
+                        Log.d("joshua", "Success");
 
-                        Toast.makeText(getContext(), ""+getContext().getString(R.string.score), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), ""+getContext().getString(R.string.score), Toast.LENGTH_SHORT).show();
 
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), ""+getContext().getString(R.string.scorenot), Toast.LENGTH_SHORT).show();
+                        Log.d("joshua", "Failure");
+//                        Toast.makeText(getContext(), ""+getContext().getString(R.string.scorenot), Toast.LENGTH_SHORT).show();
 
                     }
                 });

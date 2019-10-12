@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".Rank"></activity>
         <activity android:name=".Afterlogin"></activity>
         <activity android:name=".Play" />
         <activity android:name=".Menu" />
