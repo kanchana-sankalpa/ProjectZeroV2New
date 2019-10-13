@@ -538,6 +538,9 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
             alertDialog.setView(msg);
             getScore();
 
+
+            Log.d("joshua","this time score"+Integer.toString(onlineScore));
+
             Log.d("joshua","this time score"+Integer.toString(thisScore));
         }
 
@@ -548,8 +551,12 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
             public void onClick(DialogInterface dialog, int which) {
                 Log.d("joshua","next exit"+Integer.toString(onlineScore));
                 if (onlineScore< thisScore){
+                    Toast.makeText(getContext(),""+getContext().getString(R.string.newScore,thisScore),Toast.LENGTH_SHORT);
                     setScore(thisScore);
-                    Log.d("joshua","get online"+Integer.toString(onlineScore));
+
+                }
+                else {
+                    Toast.makeText(getContext(),""+getContext().getString(R.string.oldScore,thisScore),Toast.LENGTH_SHORT);
                 }
                 Intent username = new Intent(getContext(), Menu.class);
                 ((Activity)getContext()).startActivity(username);
@@ -562,8 +569,12 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
             public void onClick(DialogInterface dialog, int which) {
                 Log.d("joshua","next online"+Integer.toString(onlineScore));
                 if (onlineScore< thisScore){
+                    Toast.makeText(getContext(),""+getContext().getString(R.string.newScore,thisScore),Toast.LENGTH_SHORT);
                     setScore(thisScore);
 
+                }
+                else {
+                    Toast.makeText(getContext(),""+getContext().getString(R.string.oldScore,thisScore),Toast.LENGTH_SHORT);
                 }
                 activity.startActivity(play);
                 activity.finish();
@@ -602,11 +613,13 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 // String snap = dataSnapshot.getValue(String.class);
                 Log.d("myz", "snap  :"+dataSnapshot.toString());
                 Long scor = dataSnapshot.getValue(Long.class);
+                Log.d("joshua","getonline"+Integer.toString(onlineScore));
 
                 assert scor != null;
                 if(scor.equals("")){
                     onlineScore = 0;
                 }else {
+                    Log.d("joshua","getonline"+Integer.toString(onlineScore));
                     onlineScore= new Long(scor).intValue();
                     Log.d("joshua","getonline"+Integer.toString(onlineScore));
                 }

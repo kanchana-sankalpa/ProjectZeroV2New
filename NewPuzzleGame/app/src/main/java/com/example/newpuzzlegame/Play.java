@@ -101,4 +101,11 @@ public class Play extends AppCompatActivity {
         startActivity(play);
         finish();
     }
+//    @Override
+//    public void onBackPressed() {
+//        Intent play = new Intent(Play.this, Menu.class);
+//        play.putExtra("name", name);
+//        startActivity(play);
+//        finish();
+//    }
 }
