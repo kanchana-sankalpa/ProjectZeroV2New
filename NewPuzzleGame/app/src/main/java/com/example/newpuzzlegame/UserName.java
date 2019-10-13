@@ -25,11 +25,14 @@ public class UserName extends AppCompatActivity {
     DatabaseReference myRef;
     private DatabaseReference mDatabase;
     String f_id;
+    androidx.appcompat.widget.Toolbar toolbar_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_name);
+
+
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         myRef = mDatabase.getRef();
@@ -79,8 +82,7 @@ public class UserName extends AppCompatActivity {
                 });
 
 
-
-    }else {
+    }else{
          Toast.makeText(this, ""+getString(R.string.name_please), Toast.LENGTH_SHORT).show();
         }
 
