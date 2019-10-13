@@ -80,6 +80,10 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     String f_id;
     public int onlineScore;
     public int thisScore;
+    int thisTimeMode;
+    int thisTimeSteps;
+    int thisTimeSeconds;
+    int thiTimeLevel;
 
     int firstx,firsty;
     float lastx,lasty;
@@ -236,7 +240,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                         Log.d("myz", "You Won");
                         MainActivity x = (MainActivity) getContext();
                         x.t.cancel();
-                        openDialogtime();
+                        getScore();
                     }
 
                 }
@@ -501,12 +505,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     @SuppressLint("ResourceAsColor")
     public void openDialogtime(){
         MainActivity activity =  (MainActivity)getContext();
-        int mode = activity.mode;
-        int steps = activity.steps;
-        int seconds = activity.seconds;
-        int level = activity.level;
         Intent play = new Intent(getContext(), Play.class);
-        play.putExtra("mode",mode);
+        play.putExtra("mode",thisTimeMode);
 
         alertDialog = new AlertDialog.Builder(getContext()).create();
         // Set Custom Title
@@ -518,25 +518,30 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         title.setTextColor(Color.BLACK);
         title.setTextSize(20);
         alertDialog.setCustomTitle(title);
-        if (mode==1){
+        if (thisTimeMode==1){
             // Set Message
             TextView msg = new TextView(getContext());
             // Message Properties
-            msg.setText(getResources().getString(R.string.won_relax,steps));
+            msg.setText(getResources().getString(R.string.won_relax,thisTimeSteps));
             msg.setGravity(Gravity.CENTER_HORIZONTAL);
             msg.setTextColor(Color.BLACK);
             alertDialog.setView(msg);
         }
-        else if (mode== 2){
+        else if (thisTimeMode== 2){
             // Set Message
             TextView msg = new TextView(getContext());
             // Message Properties
-            msg.setText(getResources().getString(R.string.won_challenge,steps,(59-seconds)));
+            if (thisScore>onlineScore){
+                msg.setText(getResources().getString(R.string.best_score,thisTimeSteps,(59-thisTimeSeconds),thisScore));
+
+            }
+            else{
+                msg.setText(getResources().getString(R.string.won_challenge,thisTimeSteps,(59-thisTimeSeconds),thisScore));
+            }
+
             msg.setGravity(Gravity.CENTER_HORIZONTAL);
             msg.setTextColor(Color.BLACK);
-            thisScore = level*5000/((59-seconds)+steps);
             alertDialog.setView(msg);
-            getScore();
 
 
             Log.d("joshua","this time score"+Integer.toString(onlineScore));
@@ -610,10 +615,15 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                MainActivity activity =  (MainActivity)getContext();
+                thisTimeMode = activity.mode;
+                thisTimeSteps = activity.steps;
+                thisTimeSeconds = activity.seconds;
+                thiTimeLevel = activity.level;
+                thisScore = thiTimeLevel*5000/((59-thisTimeSeconds)+thisTimeSteps);
                 // String snap = dataSnapshot.getValue(String.class);
-                Log.d("myz", "snap  :"+dataSnapshot.toString());
                 Long scor = dataSnapshot.getValue(Long.class);
-                Log.d("joshua","getonline"+Integer.toString(onlineScore));
+
 
                 assert scor != null;
                 if(scor.equals("")){
@@ -624,9 +634,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                     Log.d("joshua","getonline"+Integer.toString(onlineScore));
                 }
                 Log.d("joshua", "score set  :"+onlineScore);
-
-
-
+                Log.d("sssii","mode"+thisTimeMode+"step"+thisTimeSteps+"second"+thisTimeSeconds+"level"+thiTimeLevel+"score"+thisScore);
+                openDialogtime();
             }
 
 

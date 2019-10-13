@@ -83,15 +83,6 @@
                 android:background="@drawable/buttonshape2"
                 android:onClick="levelButton6"
                 android:text="@string/level6" />
-            <Button
-                android:id="@+id/level_button_0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
-                android:onClick="levelButton0"
-                android:text="@string/level0" />
 
         </LinearLayout>
     </LinearLayout>

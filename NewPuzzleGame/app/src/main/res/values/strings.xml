@@ -18,7 +18,10 @@
 
     <string name="achieved">LEVEL SOLVED</string>
     <string name="won_relax">Congratulations\nYou spent %1$d steps to solve this puzzle.</string>
-    <string name="won_challenge">Congratulations\nYou spent %1$d steps to solve this puzzle in %2$d seconds.</string>
+    <string name="won_challenge">Congratulations\nYou spent %1$d steps to solve this puzzle in %2$d seconds.\nYou got %3$d
+   score this time.Highest score will be recorded in Ranking. Harder level will get more score.</string>
+    <string name="best_score">Congratulations\nYou spent %1$d steps to solve this puzzle in %2$d seconds.\nYou got %3$d
+   score this time.Amazing!!This your highest score on Ranking! </string>
     <string name="finishcl">EXIT</string>
     <string name="time">TIME\'S UP</string>
     <string name="sorry">Sorry your time\'s up\nplease try again.</string>
