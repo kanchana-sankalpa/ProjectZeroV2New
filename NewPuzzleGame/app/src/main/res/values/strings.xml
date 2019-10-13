@@ -10,6 +10,7 @@
     <string name="close">Close</string>
 
     <string name="name_please">Please enter your name</string>
+    <string name="rank_title">Ranking</string>
 
     <string name="Play">Play</string>
     <string name="challenge">CHALLENGE MODE</string>
@@ -32,6 +33,8 @@
     <string name="reset">Reset</string>
     <string name="score">Score updated successfully</string>
     <string name="scorenot">Score not updated successfully</string>
+    <string name="newScore">You break your highest score,You got %1$d this time,your score has been recorded in Ranking</string>
+    <string name="oldScore">You got %1$d this time that is lower than your best, Please try agian! </string>
 
     <string name="ins">The goal is to bring the upper red block to the final position(At bottom center) in as few steps as possible.</string>
 </resources>
