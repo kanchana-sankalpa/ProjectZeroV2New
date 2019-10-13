@@ -53,6 +53,7 @@ public class UserName extends AppCompatActivity {
 
         Log.d("myz", "F-ID  :"+f_id);
         if(!uname.equals("")){
+
         myRef.child("users").child(f_id).child("user_name").setValue(uname)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -80,7 +81,7 @@ public class UserName extends AppCompatActivity {
 
 
     }else {
-            Toast.makeText(this, ""+getString(R.string.name_please), Toast.LENGTH_SHORT).show();
+         Toast.makeText(this, ""+getString(R.string.name_please), Toast.LENGTH_SHORT).show();
         }
 
     }
