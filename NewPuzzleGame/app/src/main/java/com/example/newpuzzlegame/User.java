@@ -9,6 +9,10 @@ public class User implements Comparable<User>{
         this.userName = userName;
         this.score = score;
     }
+    public User(String userName,int score){
+        this.userName = userName;
+        this.score = score;
+    }
     public void setUserId(String userId){
         this.userId=userId;
     }
