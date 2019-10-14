@@ -33,12 +33,10 @@ public class Menu extends AppCompatActivity {
         play.putExtra("name", name);
         play.putExtra("mode", 2);
         startActivity(play);
-        finish();
     }
 
     public void signout(View v){
         FirebaseAuth.getInstance().signOut();
-        finish();
     }
 
     public void relaxbtn(View v){
@@ -47,7 +45,12 @@ public class Menu extends AppCompatActivity {
         play.putExtra("name", name);
         play.putExtra("mode", 1);
         startActivity(play);
-        finish();
+    }
+
+    public void rank(View v){
+
+        Intent play = new Intent(Menu.this, Rank.class);
+        startActivity(play);
     }
 
 }

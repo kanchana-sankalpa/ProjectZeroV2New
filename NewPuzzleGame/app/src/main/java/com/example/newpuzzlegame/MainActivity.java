@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     String name;
     public Timer t;
     public LinearLayout lay;
-    int steps = 0;
-    int mode;
-    int level;
+    public int steps = 0;
+    public int mode;
+    public int level;
     LinearLayout time_lay;
     List<Block> blocks;
 
