@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Menu extends AppCompatActivity {
 
     String name;
+    androidx.appcompat.widget.Toolbar toolbar_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,9 @@ public class Menu extends AppCompatActivity {
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
+
+        toolbar_main = findViewById(R.id.toolbar_menu);
+        toolbar_main.setTitle(name);
 
     }
 
