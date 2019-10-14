@@ -85,6 +85,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
     int thisTimeSeconds;
     int thiTimeLevel;
 
+
     int firstx,firsty;
     float lastx,lasty;
     DatabaseReference myref,myrefnew;
@@ -507,6 +508,14 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         MainActivity activity =  (MainActivity)getContext();
         Intent play = new Intent(getContext(), Play.class);
         play.putExtra("mode",thisTimeMode);
+/*
+        int mode = activity.mode;
+        int steps = activity.steps;
+        int seconds = activity.seconds;
+        int level = activity.level;
+        Intent play = new Intent(getContext(), Play.class);
+        play.putExtra("mode",mode);
+*/
 
         alertDialog = new AlertDialog.Builder(getContext()).create();
         // Set Custom Title
@@ -523,10 +532,18 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
             TextView msg = new TextView(getContext());
             // Message Properties
             msg.setText(getResources().getString(R.string.won_relax,thisTimeSteps));
+/*
+        if (mode==1){
+            // Set Message
+            TextView msg = new TextView(getContext());
+            // Message Properties
+            msg.setText(getResources().getString(R.string.won_relax,steps));
+*/
             msg.setGravity(Gravity.CENTER_HORIZONTAL);
             msg.setTextColor(Color.BLACK);
             alertDialog.setView(msg);
         }
+
         else if (thisTimeMode== 2){
             // Set Message
             TextView msg = new TextView(getContext());
@@ -542,6 +559,18 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
             msg.setGravity(Gravity.CENTER_HORIZONTAL);
             msg.setTextColor(Color.BLACK);
             alertDialog.setView(msg);
+/*
+        else if (mode== 2){
+            // Set Message
+            TextView msg = new TextView(getContext());
+            // Message Properties
+            msg.setText(getResources().getString(R.string.won_challenge,steps,(59-seconds)));
+            msg.setGravity(Gravity.CENTER_HORIZONTAL);
+            msg.setTextColor(Color.BLACK);
+            thisScore = level*5000/((59-seconds)+steps);
+            alertDialog.setView(msg);
+            getScore();
+*/
 
 
             Log.d("joshua","this time score"+Integer.toString(onlineScore));
@@ -622,7 +651,9 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 thiTimeLevel = activity.level;
                 thisScore = thiTimeLevel*5000/((59-thisTimeSeconds)+thisTimeSteps);
                 // String snap = dataSnapshot.getValue(String.class);
+
                 Long scor = dataSnapshot.getValue(Long.class);
+                Log.d("joshua","getonline"+Integer.toString(onlineScore));
 
 
                 assert scor != null;
@@ -636,6 +667,7 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 Log.d("joshua", "score set  :"+onlineScore);
                 Log.d("sssii","mode"+thisTimeMode+"step"+thisTimeSteps+"second"+thisTimeSeconds+"level"+thiTimeLevel+"score"+thisScore);
                 openDialogtime();
+
             }
 
 

@@ -33,9 +33,6 @@ public class Play extends AppCompatActivity {
             toolbar_main.setTitle(getString(R.string.challenge));
             setSupportActionBar(toolbar_main);
         }
-
-
-
     }
 
     public void levelButton1(View v){
