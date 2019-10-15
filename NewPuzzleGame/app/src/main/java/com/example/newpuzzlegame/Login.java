@@ -396,7 +396,7 @@ public void addData() {
 
 
         myRef = FirebaseDatabase.getInstance().getReference().child("users").child(f_id);
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -435,7 +435,7 @@ public void addData() {
 
 
                                                 mref = FirebaseDatabase.getInstance().getReference().child("users").child(f_id).child("user_name");
-                                                mref.addValueEventListener(new ValueEventListener() {
+                                                mref.addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         // String snap = dataSnapshot.getValue(String.class);
@@ -485,7 +485,7 @@ public void addData() {
     }
             public void checknewuser(){
        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(google_id);
-       databaseReference.addValueEventListener(new ValueEventListener() {
+       databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
                if(dataSnapshot.exists()) {

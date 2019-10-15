@@ -31,7 +31,8 @@ public class Rank extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
-        getAllUserScore();
+
+//    getAllUserScore();
 }
     @Override
     public void onBackPressed() {
@@ -41,7 +42,7 @@ public class Rank extends AppCompatActivity {
 
     public void getAllUserScore(){
         myref = FirebaseDatabase.getInstance().getReference().child("users");
-        myref.addValueEventListener(new ValueEventListener() {
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int score = 0;

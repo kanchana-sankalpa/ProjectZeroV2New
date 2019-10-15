@@ -35,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar_main;
     TextView timertxt;
     TextView stepstxt;
-    public int seconds = 60;
+    int initialSeconds = 60;
+    public int seconds = initialSeconds;
     public int minutes = 0;
     Klotski mKlotskiView,klotski;
     AlertDialog alertDialog;
     LinearLayout dis;
-    String name;
+    public String name;
     public Timer t;
     public LinearLayout lay;
     public int steps = 0;
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent play = new Intent(MainActivity.this, Menu.class);
+        Intent play = new Intent(this, Menu.class);
         play.putExtra("name", name);
         startActivity(play);
         finish();
@@ -149,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reset(View v){
+        steps = 0;
+        stepstxt.setText(""+steps);
+        seconds=initialSeconds;
         selectLevel(level);
 //        Intent intent = getIntent();
 //        finish();
