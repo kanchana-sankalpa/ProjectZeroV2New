@@ -120,31 +120,31 @@ public class Play extends AppCompatActivity {
         startActivity(play);
         finish();
     }
-    public void lockLevel(int level){
+    public void unLockLevel(int level){
         switch (level) {
             case 1:
-                findViewById(R.id.level_button_1).setEnabled(false);
-                findViewById(R.id.level_button_1).setBackgroundResource(R.drawable.level_button_disable);
+                findViewById(R.id.level_button_1).setEnabled(true);
+                findViewById(R.id.level_button_1).setBackgroundResource(R.drawable.buttonshape2);
                 break;
             case 2:
-                findViewById(R.id.level_button_2).setEnabled(false);
-                findViewById(R.id.level_button_2).setBackgroundResource(R.drawable.level_button_disable);
+                findViewById(R.id.level_button_2).setEnabled(true);
+                findViewById(R.id.level_button_2).setBackgroundResource(R.drawable.buttonshape2);
                 break;
             case 3:
-                findViewById(R.id.level_button_3).setEnabled(false);
-                findViewById(R.id.level_button_3).setBackgroundResource(R.drawable.level_button_disable);
+                findViewById(R.id.level_button_3).setEnabled(true);
+                findViewById(R.id.level_button_3).setBackgroundResource(R.drawable.buttonshape2);
                 break;
             case 4:
-                findViewById(R.id.level_button_4).setEnabled(false);
-                findViewById(R.id.level_button_4).setBackgroundResource(R.drawable.level_button_disable);
+                findViewById(R.id.level_button_4).setEnabled(true);
+                findViewById(R.id.level_button_4).setBackgroundResource(R.drawable.buttonshape2);
                 break;
             case 5:
-                findViewById(R.id.level_button_5).setEnabled(false);
-                findViewById(R.id.level_button_5).setBackgroundResource(R.drawable.level_button_disable);
+                findViewById(R.id.level_button_5).setEnabled(true);
+                findViewById(R.id.level_button_5).setBackgroundResource(R.drawable.buttonshape2);
                 break;
             case 6:
-                findViewById(R.id.level_button_6).setEnabled(false);
-                findViewById(R.id.level_button_6).setBackgroundResource(R.drawable.level_button_disable);
+                findViewById(R.id.level_button_6).setEnabled(true);
+                findViewById(R.id.level_button_6).setBackgroundResource(R.drawable.buttonshape2);
                 break;
         }
         Log.d("lock","lock level "+level);
@@ -159,11 +159,9 @@ public class Play extends AppCompatActivity {
 
                 if(indicator == null){
                     Log.d("lock","null,try to lock level "+level);
-                    lockLevel(level);
                 }
-                else if (indicator != true){
-                    Log.d("lock","false,try to lock level "+level);
-                    lockLevel(level);
+                else if (indicator == true){
+                    unLockLevel(level);
                 }
             }
 

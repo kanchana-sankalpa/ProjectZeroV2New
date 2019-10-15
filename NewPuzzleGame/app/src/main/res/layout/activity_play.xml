@@ -36,6 +36,7 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/buttonshape2"
+                android:enabled="true"
                 android:onClick="levelButton1"
                 android:text="@string/level1" />
             <Button
@@ -44,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
+                android:background="@drawable/level_button_disable"
+                android:enabled="false"
                 android:onClick="levelButton2"
                 android:text="@string/level2" />
             <Button
@@ -53,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
+                android:background="@drawable/level_button_disable"
+                android:enabled="false"
                 android:onClick="levelButton3"
                 android:text="@string/level3" />
             <Button
@@ -62,7 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
+                android:background="@drawable/level_button_disable"
+                android:enabled="false"
                 android:onClick="levelButton4"
                 android:text="@string/level4" />
             <Button
@@ -71,7 +75,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
+                android:background="@drawable/level_button_disable"
+                android:enabled="false"
                 android:onClick="levelButton5"
                 android:text="@string/level5" />
             <Button
@@ -80,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/buttonshape2"
+                android:background="@drawable/level_button_disable"
+                android:enabled="false"
                 android:onClick="levelButton6"
                 android:text="@string/level6" />
 
