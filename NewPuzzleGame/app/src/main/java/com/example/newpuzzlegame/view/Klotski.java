@@ -592,9 +592,9 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
         negBtnLP.gravity = Gravity.FILL_HORIZONTAL;
         cancelBT.setTextColor(R.color.grey1);
         cancelBT.setLayoutParams(negBtnLP);
-
-        Db databse = new Db();
-        databse.setLevelIndicator(f_id,((MainActivity) getContext()).level,false);
+        //set this level indicator
+        Db database = new Db();
+        database.setLevelIndicator(f_id,((MainActivity) getContext()).level+1,true);
     }
 
 
