@@ -411,8 +411,8 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                 canvas = null;
                 try {
                     canvas = mSurfaceHolder.lockCanvas(null);
-                    synchronized (mSurfaceHolder) {
-                        draw(canvas);
+                        synchronized (mSurfaceHolder) {
+                            draw(canvas);
                     }
                 } finally {
                     if (canvas != null) {
@@ -618,6 +618,9 @@ public class Klotski extends SurfaceView implements SurfaceHolder.Callback {
                     onlineScore = 0;
                 }else {
                     onlineScore= new Long(scor).intValue();
+                }
+                if (onlineScore<thisScore){
+                    setScore(thisScore);
                 }
                 openDialogtime();
 
